@@ -66,10 +66,10 @@
                         <a class="page-scroll" href="#contact">聯絡我們</a>
                     </li>
                     <li>
-                        <a href="#login" data-toggle="modal">會員登入</a>
+                        <a href="/manage.php">進入管理頁面</a>
                     </li>
                     <li>
-                        <a href="#register" data-toggle="modal">會員註冊</a>
+                        <a href="#logout" data-toggle="modal">登出</a>
                     </li>
                 </ul>
             </div>
@@ -271,57 +271,19 @@
         </div>
     </section>
 
-    <div class="modal fade" id="login">
+    <div class="modal fade" id="logout">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">會員登入</h4>
+                    <h4 class="modal-title">登出 EZ Ticket</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
+                    你確定要登出嗎？
                 </div>
                 <div class="modal-footer">
-                    <a href="#register" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">尚未擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">登入帳號</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="register">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">會員註冊</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-check"></i></span>
-                        <input type="text" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#login" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">已經擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">註冊帳號</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">我按錯拉</button>             
+                    <button type="button" class="btn btn-primary">登出</button>
                 </div>
             </div>
         </div>
