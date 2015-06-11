@@ -138,7 +138,7 @@
                     <h5 class="modal-title" style=" margin-top: 0.2cm;">電子信箱</h5>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="account" type="text" class="form-control" value="<?php echo $row_Profile["Email"]; ?>" aria-describedby="sizing-addon1">
+                        <input name="account" type="text" class="form-control" readonly="readonly" value="<?php echo $row_Profile["Email"]; ?>" aria-describedby="sizing-addon1">
                     </div>
                     <h5 class="modal-title" style=" margin-top: 0.2cm;">密碼</h5>
                     <div class="input-group">
