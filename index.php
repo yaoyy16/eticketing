@@ -89,11 +89,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-<<<<<<< HEAD
     <title>Eden Ticket</title>
-=======
-    <title>EZ Ticket - 電子票卷最佳選擇</title>
->>>>>>> origin/master
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -371,7 +367,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">會員登入</h4>
                 </div>
-<<<<<<< HEAD
                 <form name="loginForm" method="post" action="">
                 <div class="modal-body">
                     <?php
@@ -397,23 +392,6 @@
                     <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="登入">
                 </div>
                 </form>
-=======
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#register" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">尚未擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">登入帳號</button>
-                </div>
->>>>>>> origin/master
             </div>
         </div>
     </div>
@@ -425,7 +403,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">會員註冊</h4>
                 </div>
-<<<<<<< HEAD
                 <form name="signUpForm" id="formReg" method="post" action="">
                 <div class="modal-body">
                     <?php
@@ -475,27 +452,6 @@
                     <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="註冊">
                 </div>
                 </form>
-=======
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-check"></i></span>
-                        <input type="text" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#login" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">已經擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">註冊帳號</button>
-                </div>
->>>>>>> origin/master
             </div>
         </div>
     </div>
