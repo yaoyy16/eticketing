@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EZ Ticket - 電子票卷最佳選擇</title>
+    <title>Eden Ticket - 電子票卷最佳選擇</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">EZ Ticket</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Eden Ticket</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,7 +83,7 @@
             <div class="header-content-inner">
                 <h1>讓你輕鬆參加每一場慈善音樂會</h1>
                 <hr>
-                <p>使用 EZ Ticket</p>
+                <p>使用 Eden Ticket</p>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">瞭解更多</a>
             </div>
         </div>
@@ -276,14 +276,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">登出 EZ Ticket</h4>
+                    <h4 class="modal-title">登出 Eden Ticket</h4>
                 </div>
                 <div class="modal-body">
                     你確定要登出嗎？
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">我按錯拉</button>             
-                    <button type="button" class="btn btn-primary">登出</button>
+                    <a href="logout.php"><button type="button" class="btn btn-primary">登出</button></a>
                 </div>
             </div>
         </div>
