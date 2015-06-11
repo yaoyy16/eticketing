@@ -20,7 +20,7 @@
 .navbar-default .nav > li > a:focus {
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   color: #222222;
 }
 .navbar-default .nav > li > a:hover,

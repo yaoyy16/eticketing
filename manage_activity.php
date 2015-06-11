@@ -62,10 +62,10 @@
                         <a href="manager_home.php">回到首頁</a>
                     </li>
                     <li>
-                        <a href="manager_home.php">所有我的活動</a>
+                        <a href="manage_activity.php">所有我的活動</a>
                     </li>
                     <li>
-                        <a href="manager_home.php">新增活動</a>
+                        <a href="#new_event" data-toggle="modal">新增活動</a>
                     </li>
                     <li>
                         <a href="manager_home.php">個人帳戶管理</a>
@@ -101,6 +101,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="new_event">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增活動</h4>
+    			</div>
+    			<div class="modal-body">
+    				<form>
+    					<div class="form-group">
+    						<label for="event_name">活動名稱</label>
+    						<input type="text" class="form-control" id="" placeholder="請在此輸入活動名稱">
+    					</div>
+    				</form>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">下一步</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
     <!-- jQuery -->
     <script src="js/jquery-1.11.3.min.js"></script>
 
