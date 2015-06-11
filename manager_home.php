@@ -66,7 +66,7 @@
                         <a class="page-scroll" href="#contact">聯絡我們</a>
                     </li>
                     <li>
-                        <a href="manage_activity.php">管理我的活動</a>
+                        <a href="manage_activity.php">綜覽</a>
                     </li>
                     <li>
                         <a href="#logout" data-toggle="modal">登出</a>
@@ -95,7 +95,8 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">還記得到了演唱會現場才發現忘記帶票的囧樣嗎？</h2>
                     <hr class="light">
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+                    <p class="text-faded">你常常想要聽音樂會卻因為高昂的票價而卻步嘛？你常常想要參加慈善音樂會卻找不到管道索票嘛？
+                                          如果你是以上的族群，立刻來試用最新的服務吧！</p>
                     <a href="#" class="btn btn-default btn-xl">開始使用</a>
                 </div>
             </div>

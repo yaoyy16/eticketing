@@ -154,10 +154,10 @@
                         <a class="page-scroll" href="#contact">聯絡我們</a>
                     </li>
                     <li>
-                        <a href="#login" data-toggle="modal">會員登入</a>
+                        <a href="#login" data-toggle="modal">登入</a>
                     </li>
                     <li>
-                        <a href="#register" data-toggle="modal">會員註冊</a>
+                        <a href="#register" data-toggle="modal">註冊</a>
                     </li>
                 </ul>
             </div>
@@ -364,7 +364,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">會員登入</h4>
+                    <h4 class="modal-title">登入</h4>
                 </div>
                 <form name="loginForm" method="post" action="">
                 <div class="modal-body">
@@ -400,7 +400,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">會員註冊</h4>
+                    <h4 class="modal-title">註冊</h4>
                 </div>
                 <form name="signUpForm" id="formReg" method="post" action="">
                 <div class="modal-body">

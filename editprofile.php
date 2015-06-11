@@ -18,6 +18,13 @@
 			header("Location: editProfile.php?editStats=1");
 		}
 	}
+    if(isset($_POST["action"]) && ($_POST["action"] == "addevent"))
+    {
+        if( ($_POST["concertname"]==""))
+            header("Location: editprofile.php?errMsg=2"); 
+        else
+            header("Location: addevent.php");
+    }
 
 	$query_profile = "SELECT * FROM `personal_information` WHERE `Email` = '".$_SESSION["account"]."'";
 	$Profile = mysqli_query($connect ,$query_profile);
@@ -85,16 +92,27 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">                                    
+<?php
+if($_SESSION["memberType"] == "M")
+{ ?>
                     <li>
                         <a href="manager_home.php">回到首頁</a>
-                    </li>
+                    </li>    
                     <li>
-                        <a href="manager_home.php">所有我的活動</a>
+                        <a href="manage_activity.php">所有我的活動</a>
                     </li>
                     <li>
                         <a href="#new_event" data-toggle="modal">新增活動</a>
                     </li>
+<?php }else{ ?>
+                    <li>
+                        <a href="user_home.php">回到首頁</a>
+                    </li>    
+                    <li>
+                        <a href="user_activity.php">所有我的活動</a>
+                    </li>
+<?php } ?>
                     <li>
                         <a href="editprofile.php">個人帳戶管理</a>
                     </li>
@@ -133,7 +151,7 @@
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">電子信箱</label>
                 <div class="col-sm-10">
-                    <input name="account" type="text" class="form-control" id="account_input" value="<?php echo $row_Profile["Email"]; ?>">
+                    <input name="account" type="text" class="form-control" readonly="readonly" id="account_input" value="<?php echo $row_Profile["Email"]; ?>">
                 </div>
             </div>
             <div class="form-group">
@@ -165,43 +183,7 @@
                     <h4 class="modal-title">登出 Eden Ticket</h4>
                 </div>
                 <div class="modal-body">
-<<<<<<< HEAD
-                 	<?php
-                        //not login yet page
-                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
-                        {  ?>
-                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您輸入的過程中可能發生錯誤，或所填改資料不完整，請重新修改。</div>
-                    <?php
-                        }
-                    ?>
-                    <h5 class="modal-title" style=" margin-top: 0.2cm;">真實姓名</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-                        <input name="name" type="text" class="form-control" value="<?php echo $row_Profile["Name"]; ?>" aria-describedby="sizing-addon1">
-                    </div>
-                    <h5 class="modal-title" style=" margin-top: 0.2cm;">聯絡電話</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-phone"></i></span>
-                        <input name="phonenum" type="text" class="form-control" value="<?php echo $row_Profile["Phone_num"]; ?>" aria-describedby="sizing-addon1">
-                    </div>
-                    <h5 class="modal-title" style=" margin-top: 0.2cm;">電子信箱</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="account" type="text" class="form-control" readonly="readonly" value="<?php echo $row_Profile["Email"]; ?>" aria-describedby="sizing-addon1">
-                    </div>
-                    <h5 class="modal-title" style=" margin-top: 0.2cm;">密碼</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input name="passwd" type="password" class="form-control" value="<?php echo $row_Profile["Password"]; ?>" aria-describedby="sizing-addon1">
-                    </div>
-                    <h5 class="modal-title" style=" margin-top: 0.2cm;">密碼確認</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-check"></i></span>
-                        <input name="passwdtry" type="password" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
-                    </div>
-=======
                     你確定要登出嗎？
->>>>>>> origin/master
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">我按錯拉</button>             
@@ -218,22 +200,29 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">新增活動</h4>
                 </div>
+                <form name="addevent" method="post" action="">
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="event_name">活動名稱</label>
-                            <input type="text" class="form-control" id="" placeholder="請在此輸入活動名稱">
-                        </div>
-                    </form>
+                    <?php
+                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "2")
+                        {  ?>
+                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填寫新活動名稱</div>
+                    <?php
+                        }
+                    ?>
+                    <div class="form-group">
+                        <label for="event_name">活動名稱</label>
+                        <input name="concertname" type="text" class="form-control" id="" placeholder="請在此輸入活動名稱">
+                    </div>                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">下一步</button>
+                    <input name="action" type="hidden" id="action" value="addevent">
+                    <input type="submit" name="submit3" class="btn btn-primary navbar-btn" value="下一步">
                 </div>
+                </form>
             </div>
         </div>
     </div>
-
     <!-- jQuery -->
     <script src="js/jquery-1.11.3.min.js"></script>
 

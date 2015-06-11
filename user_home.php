@@ -66,7 +66,7 @@
                         <a class="page-scroll" href="#contact">聯絡我們</a>
                     </li>
                     <li>
-                        <a href="/manage.php">會員專區</a>
+                        <a href="user_activity.php">會員專區</a>
                     </li>
                     <li>
                         <a href="#logout" data-toggle="modal">登出</a>
