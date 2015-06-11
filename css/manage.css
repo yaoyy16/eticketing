@@ -36,3 +36,11 @@
 .navbar-default .nav > li.active > a:focus:hover {
   background-color: transparent;
 }
+#profile {
+  margin-top: 10%;
+  margin-left: 25%;
+  width: 50%;
+}
+#profile .form-group {
+  margin-top: 20px;
+}

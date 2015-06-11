@@ -93,7 +93,7 @@
                         <a href="manager_home.php">所有我的活動</a>
                     </li>
                     <li>
-                        <a href="manager_home.php">新增活動</a>
+                        <a href="#new_event" data-toggle="modal">新增活動</a>
                     </li>
                     <li>
                         <a href="editprofile.php">個人帳戶管理</a>
@@ -109,14 +109,63 @@
     </nav>
 
     <div style=" margin-top: 3cm;"></div>
-    <div class="modal-dialog">
+    <form name="editForm" method="post" action="" id="profile" class="form-horizontal">
+            <?php
+                //not login yet page
+                if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
+                {  ?>
+                   <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您輸入的過程中可能發生錯誤，或所填改資料不完整，請重新修改。</div>
+            <?php
+                }
+            ?>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">真實姓名</label>
+                <div class="col-sm-10">
+                    <input name="name" type="text" class="form-control" id="name_input" value="<?php echo $row_Profile["Name"]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">聯絡電話</label>
+                <div class="col-sm-10">
+                    <input name="phonenum" type="text" class="form-control" id="phonenum_input" value="<?php echo $row_Profile["Phone_num"]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">電子信箱</label>
+                <div class="col-sm-10">
+                    <input name="account" type="text" class="form-control" id="account_input" value="<?php echo $row_Profile["Email"]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">密碼</label>
+                <div class="col-sm-10">
+                    <input name="passwd" type="password" class="form-control" id="password_input" value="<?php echo $row_Profile["Password"]; ?>">
+                </div>
+            </div>          
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">密碼確認</label>
+                <div class="col-sm-10">
+                    <input name="passwdtry" type="password" class="form-control" id="passwordtry_input" >
+                </div>
+            </div>        
+
+            <div class="modal-footer">
+                <input name="action" type="hidden" id="action" value="edit">
+                <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="修改">
+		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
+            </div>
+            
+        </form>
+
+    <div class="modal fade" id="logout">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">帳戶設定</h4>
+                    <h4 class="modal-title">登出 Eden Ticket</h4>
                 </div>
-                <form name="editForm" method="post" action="">
                 <div class="modal-body">
+<<<<<<< HEAD
                  	<?php
                         //not login yet page
                         if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
@@ -150,29 +199,36 @@
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-check"></i></span>
                         <input name="passwdtry" type="password" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <input name="action" type="hidden" id="action" value="edit">
-                    <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="修改">
-			    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="Back">
-                </div>
-                </form>
-            </div>
-        </div>
-
-    <div class="modal fade" id="logout">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">登出 Eden Ticket</h4>
-                </div>
-                <div class="modal-body">
+=======
                     你確定要登出嗎？
+>>>>>>> origin/master
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">我按錯拉</button>             
                     <a href="logout.php"><button type="button" class="btn btn-primary">登出</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="new_event">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增活動</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="event_name">活動名稱</label>
+                            <input type="text" class="form-control" id="" placeholder="請在此輸入活動名稱">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">下一步</button>
                 </div>
             </div>
         </div>
