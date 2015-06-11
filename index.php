@@ -415,27 +415,25 @@
                         }
                     ?>
                     <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
                         <input name="name" type="text" class="form-control" placeholder="請輸入真實姓名" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-phone"></i></span>
                         <input name="phonenum" type="text" class="form-control" placeholder="請輸入連絡電話" aria-describedby="sizing-addon1">
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                    <span>請選擇註冊會員類型</span>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked>活動管理者
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option2" autocomplete="off">一般會員
+                        </label>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                          <select name="type">
-                            <option value="M">活動管理者</option>
-                            <option value="U">一般使用者</option>
-                          </select>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="account" type="text" class="form-control" placeholder="請輸入帳號" aria-describedby="sizing-addon1">
+                        <input name="account" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
