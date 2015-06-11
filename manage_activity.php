@@ -27,6 +27,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/common.css" type="text/css">
+	<link rel="stylesheet" href="css/manage.css" type="text/css">    
 
 
 
@@ -61,6 +62,15 @@
                         <a href="manager_home.php">回到首頁</a>
                     </li>
                     <li>
+                        <a href="manager_home.php">所有我的活動</a>
+                    </li>
+                    <li>
+                        <a href="manager_home.php">新增活動</a>
+                    </li>
+                    <li>
+                        <a href="manager_home.php">個人帳戶管理</a>
+                    </li>
+                    <li>
                         <a href="#logout" data-toggle="modal">登出</a>
                     </li>
                 </ul>
@@ -70,7 +80,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-    
+
 
 
     <div class="modal fade" id="logout">
