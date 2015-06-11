@@ -152,7 +152,7 @@
             <div class="modal-footer">
                 <input name="action" type="hidden" id="action" value="edit">
                 <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="修改">
-		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="Back">
+		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
             </div>
             
         </form>
