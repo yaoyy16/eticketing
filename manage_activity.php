@@ -117,4 +117,11 @@
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+
+
+<a href="logout.php" data-toggle="modal">登出</a>
+>>>>>>> origin/master
