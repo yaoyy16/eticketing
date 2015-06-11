@@ -1,4 +1,84 @@
 <!DOCTYPE html>
+<?php
+    header("Content-Type:text/html; charset=utf-8");
+    require_once("connMysql.php");
+    session_start();
+
+    // 1. check have login or not
+    if(isset($_SESSION["account"]) && ($_SESSION["account"] != ""))
+    {
+        if($_SESSION["memberType"] == "M") //manager
+            header("Location: manager_home.php");
+        elseif($_SESSION["memberType"] == "U") //user
+            header("Location: user_home.php");
+    }
+
+    // 3. login
+    if(isset($_POST["action"]) && ($_POST["action"]) == "login")
+    {
+        if( ($_POST["account"] == "") || ($_POST["passwd"]==""))
+            header("Location: index.php?errMsg=1"); 
+        elseif(isset($_POST["account"]) && isset($_POST["passwd"]) && $_POST["account"] != "")
+        {
+            //connecting member data
+            $query_RecLogin = "SELECT * FROM `personal_information` WHERE `Account` = '".$_POST["account"]."'";
+            $RecLogin = mysqli_query($connect, $query_RecLogin);
+
+            //retrieve account & passwd value
+            $row_RecLogin = mysqli_fetch_assoc($RecLogin);
+            $acc = $row_RecLogin["Account"];
+            $pwd = $row_RecLogin["Password"];
+            $type = $row_RecLogin["Type"];
+
+            //compare password, if login successfully then to login state
+            if($_POST["passwd"] == $pwd)
+            {
+                //setting username and type
+                $_SESSION["account"] = $acc;
+                $_SESSION["memberType"] = $type;
+
+                if($_SESSION["memberType"] == "M") //manager
+                    header("Location: manager_home.php");
+                elseif($_SESSION["memberType"] == "U") //user
+                    header("Location: user_home.php");
+            }
+            else
+                header("Location: index.php?errMsg=1");
+        }
+    }
+
+    // 2. register
+    if(isset($_POST["action"]) && ($_POST["action"]) == "register")
+    {
+        if( ($_POST["name"]=="") || ($_POST["phonenum"]=="") || ($_POST["email"]=="") || ($_POST["type"]=="") || ($_POST["account"] == "") || ($_POST["passwd"]=="") ||  ($_POST["passwdtry"]=="") || ($_POST["passwd"]!=$_POST["passwdtry"]))
+            header("Location: index.php?errMsg=2"); 
+        else
+        {
+            //check registered before or not
+            $query_RecFindUser = "SELECT `Account` FROM `personal_information` WHERE `Account` = '".$_POST["account"]."'";
+            $RecFindUser = mysqli_query($query_RecFindUser);
+            if(mysqli_num_rows($RecFindUser) > 0)
+            {
+                header("Location: index.php?errMsg=2&account=".$_POST["account"]);   
+            }
+            else
+            {
+                $query_insert = "INSERT INTO `personal_information`(`Account`, `Password`, `Name`, `Email`, `Phone_num`, `Type`) VALUES (";
+                $query_insert .="'".$_POST["account"]."',";
+                $query_insert .="'".$_POST["passwd"]."',";
+                $query_insert .="'".$_POST["name"]."',";
+                $query_insert .="'".$_POST["email"]."',";
+                $query_insert .="'".$_POST["phonenum"]."',";
+                $query_insert .="'".$_POST["type"]."')";
+                mysqli_query($connect, $query_insert);
+                header("Location: index.php?loginStats=1");
+            }
+        }       
+    }
+
+    
+?>
+    
 <html lang="en">
 
 <head>
@@ -9,7 +89,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Eden Ticket</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -34,9 +114,18 @@
     <![endif]-->
 
 </head>
-
 <body id="page-top">
 
+<?php 
+    if(isset($_GET["loginStats"]) && ($_GET["loginStats"] == "1"))
+      {  ?>
+        <script language="javascript">
+            alert("Successfully applied !!");     
+            location.href="index.php";
+        </script>
+<?php   
+      }
+?>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +136,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">EZ Ticket</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Eden Ticket</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,7 +172,7 @@
             <div class="header-content-inner">
                 <h1>讓你輕鬆參加每一場慈善音樂會</h1>
                 <hr>
-                <p>使用 EZ Ticket</p>
+                <p>使用 Eden Ticket</p>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">瞭解更多</a>
             </div>
         </div>
@@ -278,21 +367,31 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">會員登入</h4>
                 </div>
+                <form name="loginForm" method="post" action="">
                 <div class="modal-body">
+                    <?php
+                        //not login yet page
+                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
+                        {  ?>
+                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您輸入的帳號或密碼錯誤</div>
+                    <?php
+                        }
+                    ?>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                        <input name="account" type="text" class="form-control" placeholder="請輸入帳號" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
+                        <input name="passwd" type="password" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
                     </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
                 </div>
                 <div class="modal-footer">
                     <a href="#register" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">尚未擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">登入帳號</button>
+                    <input name="action" type="hidden" id="action" value="login">                    
+                    <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="登入">
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -304,25 +403,55 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">會員註冊</h4>
                 </div>
+                <form name="signUpForm" id="formReg" method="post" action="">
                 <div class="modal-body">
+                    <?php
+                        //not login yet page
+                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "2")
+                        {  ?>
+
+                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填完完整資訊</div>
+                    <?php
+                        }
+                    ?>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                        <input name="name" type="text" class="form-control" placeholder="請輸入真實姓名" aria-describedby="sizing-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                        <input name="phonenum" type="text" class="form-control" placeholder="請輸入連絡電話" aria-describedby="sizing-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                          <select name="type">
+                            <option value="M">活動管理者</option>
+                            <option value="U">一般使用者</option>
+                          </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+                        <input name="account" type="text" class="form-control" placeholder="請輸入帳號" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-                        <input type="text" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
+                        <input name="passwd" type="password" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-check"></i></span>
-                        <input type="text" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
+                        <input name="passwdtry" type="password" class="form-control" placeholder="請再次輸入密碼" aria-describedby="sizing-addon1">
                     </div>
-                    <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>如果有錯誤再出現</div>
                 </div>
                 <div class="modal-footer">
                     <a href="#login" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-default">已經擁有帳號？</button></a>             
-                    <button type="button" class="btn btn-primary navbar-btn">註冊帳號</button>
+                    <input name="action" type="hidden" id="action" value="register">
+                    <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="註冊">
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -342,5 +471,4 @@
     <script src="js/creative.js"></script>
 
 </body>
-
 </html>
