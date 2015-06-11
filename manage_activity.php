@@ -1,7 +1,3 @@
-<?php
-	
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +24,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/common.css" type="text/css">
 	<link rel="stylesheet" href="css/manage.css" type="text/css">    
-
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,7 +62,7 @@
                         <a href="manager_home.php">新增活動</a>
                     </li>
                     <li>
-                        <a href="manager_home.php">個人帳戶管理</a>
+                        <a href="editprofile.php">個人帳戶管理</a>
                     </li>
                     <li>
                         <a href="#logout" data-toggle="modal">登出</a>
