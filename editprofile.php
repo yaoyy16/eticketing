@@ -5,21 +5,21 @@
 	
 	if(isset($_POST["action"]) && ($_POST["action"] == "edit"))
 	{
-		if( ($_POST["name"]=="") || ($_POST["phonenum"]=="") || ($_POST["account"] == "") || ($_POST["passwd"]=="") ||  ($_POST["passwdtry"]=="") || ($_POST["passwd"]!=$_POST["passwdtry"]))
+		if( ($_POST["name"]=="") || ($_POST["phonenum"]=="") || ($_POST["email"] == "") || ($_POST["passwd"]=="") ||  ($_POST["passwdtry"]=="") || ($_POST["passwd"]!=$_POST["passwdtry"]))
 			header("Location: editprofile.php?errMsg=1");
 		else
 		{
 			$na = $_POST["name"];
 			$pass = $_POST["passwd"];
-			$email = $_POST["account"];
+			$email = $_POST["email"];
 			$phone = $_POST["phonenum"];
-			$query_update = "UPDATE `personal_information` SET `Name`='$na',`Password`='$pass',`Email`='$email',`Phone_num`='$phone' WHERE `Email`='".$_SESSION["account"]."'";
+			$query_update = "UPDATE `personal_information` SET `Name`='$na',`Password`='$pass',`Email`='$email',`Phone_num`='$phone' WHERE `Account_id`='".$_SESSION["account"]."'";
 			mysqli_query($connect, $query_update);
 			header("Location: editProfile.php?editStats=1");
 		}
 	}
    
-	$query_profile = "SELECT * FROM `personal_information` WHERE `Email` = '".$_SESSION["account"]."'";
+	$query_profile = "SELECT * FROM `personal information` WHERE `Account_id` = '".$_SESSION["account"]."'";
 	$Profile = mysqli_query($connect ,$query_profile);
 	$row_Profile = mysqli_fetch_array($Profile);
 ?>
@@ -147,7 +147,7 @@ if($_SESSION["memberType"] == "M")
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">電子信箱</label>
                 <div class="col-sm-10">
-                    <input name="account" type="text" class="form-control" readonly="readonly" id="account_input" value="<?php echo $row_Profile["Email"]; ?>">
+                    <input name="email" type="text" class="form-control" readonly="readonly" id="account_input" value="<?php echo $row_Profile["Email"]; ?>">
                 </div>
             </div>
             <div class="form-group">

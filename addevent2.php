@@ -5,33 +5,23 @@
 
 	if(isset($_POST["action"]) && ($_POST["action"] == "save"))
 	{
-		if(($_POST["conname"]=="")|| ($_POST["descp"]=="")|| ($_POST["date"]=="")|| ($_POST["time"]=="")|| ($_POST["place"]==""))
-			header("Location: addevent.php?errMsg=1"); 
-		//if($_FILES["fileUpload"]["error"]==0)
+		if(($_POST["tkttype"]=="")|| ($_POST["num"]=="")|| ($_POST["price"]==""))
+			header("Location: addevent2.php?errMsg=1"); 
 		else
 		{	
-			//if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"], "img/".$_FILES["fileUpload"]["name"]))
-			//{	
-			$query_insert = "INSERT INTO `concert`(`Concert_name`, `Account_id`, `Description`, `Photo_id`, `Date`, `Time`, `Place`, `Seats`, `Money_acquired`, `Visible`) VALUES (";
-			$query_insert .= "'".$_POST["conname"]."',";
-			$query_insert .= "'".$_SESSION["account"]."',";
-			$query_insert .= "'".$_POST["descp"]."',";
-			$query_insert .= "'".$_FILES["fileUpload"]["name"]."',";
-			$query_insert .= "'".$_POST["date"]."',";
-			$query_insert .= "'".$_POST["time"]."',";
-			$query_insert .= "'".$_POST["place"]."',0,0,0)";
+			$query_insert = "INSERT INTO `ticket`(`Concert_id`, `Ticket_type`, `Num_of_ticket`, `Recommend_price`)  VALUES (" ;
+			$query_insert .= "'".$_GET["concertid"]."',";
+			$query_insert .= "'".$_POST["tkttype"]."',";
+			$query_insert .= "'".$_POST["num"]."',";
+			$query_insert .= "'".$_POST["price"]."')";
 			mysqli_query($connect, $query_insert);
 
-			$query_concert = "SELECT MAX(`Concert_id`) FROM `concert`";
-			$Concert = mysqli_query($connect, $query_concert);
-			$row_concert = mysqli_fetch_array($Concert);
-			header("Location: addevent2.php?concertid=".$row_concert[0]."");
-			//}
-			//else
-			//header("Location: addevent.php?errMsg=2");
+			header("Location: addevent2.php?concertid=".$_GET["concertid"]."");
 		}
 	}
 
+    $query_concert = "SELECT * FROM `concert` WHERE`Concert_id` = '".$_GET["concertid"]."' ";
+    $Concert = mysqli_query($connect, $query_concert);
 ?>
 
 
@@ -112,9 +102,50 @@
 
     <div id="profile">
         <div class="page-header">
-            <h3>新增活動</h3>
+            <h3>活動資訊</h3>
         </div>
-        <form name="addForm" method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+        <?php 
+        while($row_concert = mysqli_fetch_array($Concert))
+                {   ?>
+                    <div class="caption">
+                                <h3><?php echo $row_concert[0];?></h3>
+                                <ul>
+                                  <li>時間 : <?php echo $row_concert[6]."&nbsp"."&nbsp".$row_concert[7];?></li>
+                                  <li>地點 : <?php echo $row_concert[8];?></li>
+                                  <li>狀態 : <?php if($row_concert[3]) echo "已發布"; else echo "未發布";?></li>
+                                </ul>
+                    </div>
+        <?php   } ?>
+        <div class="page-header">
+            <h3>票種設定</h3>
+        </div>
+        <table class="table">
+            <thead ><tr>            
+              <th>票種名稱</th>
+              <th>數量</th>
+              <th>推薦捐款金額</th>              
+          </tr></thead>
+          <tbody>
+            <?php     
+                $query_tkttype = "SELECT `Ticket_type`, `Num_of_ticket`, `Recommend_price`FROM `concert`NATURAL JOIN `ticket`WHERE `concert`.`Concert_id` = '".$_GET["concertid"]."'";
+                $Tkttype = mysqli_query($connect, $query_tkttype);
+                if(is_null($Tkttype)) 
+                    echo "您未新增任何票種";
+                else
+                {
+                    while($row_tkttype = mysqli_fetch_row($Tkttype))
+                    { ?>
+                        <tr>
+                            <td><?php echo $row_tkttype[0];?></td>
+                            <td><?php echo $row_tkttype[1];?></td>
+                            <td><?php echo $row_tkttype[2];?></td>
+                        </tr>
+            <?php   }    
+                }
+            ?> 
+          </tbody>
+        </table>
+        <form name="addForm2" method="post" action="addevent2.php?concertid=<?php echo $_GET["concertid"];?>" class="form-horizontal">
             <?php
                 //not login yet page
                 if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
@@ -124,46 +155,28 @@
                 }
             ?>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
+                <label for="real_name" class="col-sm-2 control-label">票種名稱</label>
                 <div class="col-sm-10">
-                    <input name="conname" type="text" class="form-control" id="name_input" placeholder="" >
+                    <input name="tkttype" type="text" class="form-control" id="tkttype_input" placeholder="" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
+                <label for="real_name" class="col-sm-2 control-label">數量</label>
                 <div class="col-sm-10">
-                    <input name="descp" type="textarea" class="form-control" id="descp_input" placeholder="">
+                    <input name="num" type="textarea" class="form-control" id="num_input" placeholder="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <label for="real_name" class="col-sm-2 control-label">推薦捐款金額</label>
                 <div class="col-sm-10">
-                    <input name="date" type="text" class="form-control" id="date_input">
+                    <input name="price" type="text" class="form-control" id="price_input">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">時間</label>
-                <div class="col-sm-10">
-                    <input name="time" type="text" class="form-control" id="time_input">
-                </div>
-            </div>          
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">地點</label>
-                <div class="col-sm-10">
-                    <input name="place" type="text" class="form-control" id="place_input" >
-                </div>
-            </div>       
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">上傳活動宣傳圖</label>
-                <div class="col-sm-10">
-                 
-                </div>
-            </div>        
 
             <div class="modal-footer">
                 <input name="action" type="hidden" id="action" value="save">                    
                 <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="新增">
-		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
+                <a href="manage_activity.php"><button type="button" "btn btn-default">完成</button></a>
             </div>         
         </form>
     </div>
