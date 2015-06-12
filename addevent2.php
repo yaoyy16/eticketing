@@ -16,12 +16,21 @@
 			$query_insert .= "'".$_POST["price"]."')";
 			mysqli_query($connect, $query_insert);
 
+            //add total num of the concert and total expected money aquire
+            //$query_seat_money ="SELECT SUM(`Num_of_ticket`), SUM(`Num_of_ticket`*) FROM `ticket` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+            //$Seat_money = mysqli_query($connect, $query_seat_money);
+            //$row_Seat_money = mysql_fetch_array($Seat_money);
+
+            //更新當天的練球人數
+            //$query_storeNum = "UPDATE `concert` SET `Num_of_people`='$row_NumOfAttend[0]' WHERE `Concert_id` = '".$_GET["concertid"]."'";
+            //$storeNum = mysqli_query($connect, $query_storeNum);
+
 			header("Location: addevent2.php?concertid=".$_GET["concertid"]."");
 		}
 	}
 
-    $query_concert = "SELECT * FROM `concert` WHERE`Concert_id` = '".$_GET["concertid"]."' ";
-    $Concert = mysqli_query($connect, $query_concert);
+    $query_detail = "SELECT * FROM `concert` WHERE`Concert_id` = '".$_GET["concertid"]."' ";
+    $Detail = mysqli_query($connect, $query_detail);
 ?>
 
 
@@ -105,14 +114,14 @@
             <h3>活動資訊</h3>
         </div>
         <?php 
-        while($row_concert = mysqli_fetch_array($Concert))
+        while($row_detail = mysqli_fetch_array($Detail))
                 {   ?>
                     <div class="caption">
-                                <h3><?php echo $row_concert[0];?></h3>
+                                <h3><?php echo $row_detail[0];?></h3>
                                 <ul>
-                                  <li>時間 : <?php echo $row_concert[6]."&nbsp"."&nbsp".$row_concert[7];?></li>
-                                  <li>地點 : <?php echo $row_concert[8];?></li>
-                                  <li>狀態 : <?php if($row_concert[3]) echo "已發布"; else echo "未發布";?></li>
+                                  <li>時間 : <?php echo $row_detail[6]."&nbsp"."&nbsp".$row_detail[7];?></li>
+                                  <li>地點 : <?php echo $row_detail[8];?></li>
+                                  <li>狀態 : <?php if($row_detail[3]) echo "已發布"; else echo "未發布";?></li>
                                 </ul>
                     </div>
         <?php   } ?>

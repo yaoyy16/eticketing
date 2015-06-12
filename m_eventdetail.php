@@ -1,11 +1,36 @@
 <?php
 	header("Content-Type:text/html; charset=utf-8");
 	require_once("connMysql.php");
-	session_start();
-//`concert`(`Concert_name`,`Concert_id`,`Name`,`Description`,`Date`,`Time`,`Place`)
-	$query_concert = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."'";
-    $Concert = mysqli_query($connect, $query_concert);
+    session_start();
 
+    if(isset($_POST["action"]) && ($_POST["action"] == "release"))
+    {           
+        $query_release = "UPDATE `concert` SET `visible`= 1 WHERE `Concert_id` = '".$_GET["concertid"]."'";
+        $store_release = mysqli_query($connect, $query_release);
+        header("Location: m_eventdetail.php?concertid=".$_GET["concertid"]."");
+    }
+	
+	if(isset($_POST["action"]) && ($_POST["action"] == "edit"))
+	{
+		if( ($_POST["conname"]=="") || ($_POST["descp"]=="") || ($_POST["date"] == "") || ($_POST["time"]=="") ||  ($_POST["place"]==""))
+			header("Location: m_eventdetail.php?errMsg=1");
+		else
+		{
+			$conname = $_POST["conname"];
+			$descp = $_POST["descp"];
+			$date = $_POST["date"];
+			$time = $_POST["time"];
+			$place = $_POST["place"];
+			$query_update = "UPDATE `concert` SET `Concert_name`='$conname',`Description`='$descp',`Date`='$date',`Time`='$time', `Place`='$place' WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+			mysqli_query($connect, $query_update);
+			header("Location: m_eventdetail.php?concertid=".$_GET["concertid"]."");
+		}
+	}
+   
+	//$query_detail = "SELECT `Concert_name`, `Description`, `Date`, `Time`, `Place`, `Money_acquired` FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+	$query_detail = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+    $Detail = mysqli_query($connect, $query_detail);
+	$row_Detail = mysqli_fetch_array($Detail);
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +108,102 @@
         <!-- /.container-fluid -->
     </nav>
 
+    
+    <div id="profile">
+        <div class="page-header">
+            <h3>活動資訊</h3>
+    <?php
+        //未發佈 可改資訊
+        if($row_Detail[3] == 0)
+        { ?>
+    		<form name="po" method="post" action="" >
+                <input name="action" type="hidden" id="action" value="release">
+                <input type="submit" name="submit4" class='btn btn-default' role='button' value="發佈">
+            </form>            
+        </div>    		
+        	<form name="editForm" method="post" action="" class="form-horizontal" >
+            <?php
+                //not login yet page
+                if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
+                {  ?>
+                   <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>輸入的過程中可能發生錯誤，或所填改資料不完整，請重新修改。</div>
+            <?php
+                }
+            ?>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
+                <div class="col-sm-10">
+                    <input name="conname" type="text" class="form-control" value="<?php echo $row_Detail[0]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
+                <div class="col-sm-10">
+                    <input name="descp" type="text" class="form-control" value="<?php echo $row_Detail[4]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <div class="col-sm-10">
+                    <input name="date" type="text" class="form-control" value="<?php echo $row_Detail[6]; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">時間</label>
+                <div class="col-sm-10">
+                    <input name="time" type="text" class="form-control" value="<?php echo $row_Detail[7]; ?>">
+                </div>
+            </div>          
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">地點</label>
+                <div class="col-sm-10">
+                    <input name="place" type="text" class="form-control" value="<?php echo $row_Detail[8]; ?>">
+                </div>
+            </div>       
 
+            <div class="modal-footer">
+                <input name="action" type="hidden" id="action" value="edit">
+                <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="修改">
+                <input type="reset" name="submit2" class="btn btn-default" value="取消">
+            </div>         
+        	</form>
+<?php   }
+		else
+		{ ?>
+		  </div>
+			<div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
+                <div class="col-sm-10">
+                    <h3><?php echo $row_Detail[0]; ?></h3>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[4]; ?></h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[6]; ?></h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">時間</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[7]; ?></h4>
+                </div>
+            </div>          
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">地點</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[8]; ?></h4>
+                </div>
+            </div>       
+<?php
+		} ?>  	
+    </div>
 
 
 
