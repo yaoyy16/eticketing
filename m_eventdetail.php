@@ -5,7 +5,7 @@
 //`concert`(`Concert_name`,`Concert_id`,`Name`,`Description`,`Date`,`Time`,`Place`)
 	$query_concert = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."'";
     $Concert = mysqli_query($connect, $query_concert);
-    	
+
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@
                         <a href="manage_activity.php">我的活動</a>
                     </li>
                     <li>
-                        <a href="#new_event" data-toggle="modal">新增活動</a>
+                        <a href="addevent.php">新增活動</a>
                     </li>
                     <li>
                         <a href="editprofile.php">個人帳戶管理</a>

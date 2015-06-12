@@ -50,6 +50,9 @@
   margin-left: 25%;
   width: 50%;
 }
+#new_event #event_alert {
+  display: none;
+}
 #my_events .page-header {
   width: 70%;
   margin-left: 15%;

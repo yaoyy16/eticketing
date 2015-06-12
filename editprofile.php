@@ -18,14 +18,7 @@
 			header("Location: editProfile.php?editStats=1");
 		}
 	}
-    if(isset($_POST["action"]) && ($_POST["action"] == "addevent"))
-    {
-        if( ($_POST["concertname"]==""))
-            header("Location: editprofile.php?errMsg=2"); 
-        else
-            header("Location: addevent.php");
-    }
-
+   
 	$query_profile = "SELECT * FROM `personal_information` WHERE `Email` = '".$_SESSION["account"]."'";
 	$Profile = mysqli_query($connect ,$query_profile);
 	$row_Profile = mysqli_fetch_array($Profile);
@@ -103,7 +96,7 @@ if($_SESSION["memberType"] == "M")
                         <a href="manage_activity.php">我的活動</a>
                     </li>
                     <li>
-                        <a href="#new_event" data-toggle="modal">新增活動</a>
+                        <a href="addevent.php">新增活動</a>
                     </li>
 <?php }else{ ?>
                     <li>
@@ -195,36 +188,7 @@ if($_SESSION["memberType"] == "M")
         </div>
     </div>
 
-    <div class="modal fade" id="new_event">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">新增活動</h4>
-                </div>
-                <form name="addevent" method="post" action="">
-                <div class="modal-body">
-                    <?php
-                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "2")
-                        {  ?>
-                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填寫新活動名稱</div>
-                    <?php
-                        }
-                    ?>
-                    <div class="form-group">
-                        <label for="event_name">活動名稱</label>
-                        <input name="concertname" type="text" class="form-control" id="" placeholder="請在此輸入活動名稱">
-                    </div>                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <input name="action" type="hidden" id="action" value="addevent">
-                    <input type="submit" name="submit3" class="btn btn-primary navbar-btn" value="下一步">
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
     <!-- jQuery -->
     <script src="js/jquery-1.11.3.min.js"></script>
 
