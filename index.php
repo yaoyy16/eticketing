@@ -29,6 +29,7 @@
             $acc = $row_RecLogin["Email"];
             $pwd = $row_RecLogin["Password"];
             $type = $row_RecLogin["Type"];
+            $name = $row_RecLogin["Name"];
 
             //compare password, if login successfully then to login state
             if($_POST["passwd"] == $pwd)
@@ -36,6 +37,7 @@
                 //setting username and type
                 $_SESSION["account"] = $acc;
                 $_SESSION["memberType"] = $type;
+                $_SESSION["userName"] = $name;
 
                 if($_SESSION["memberType"] == "M") //manager
                     header("Location: manager_home.php");

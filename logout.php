@@ -3,6 +3,7 @@
 	session_start() ;
 	unset($_SESSION["account"]) ;
 	unset($_SESSION["memberType"]) ;
+	unset($_SESSION["userName"]) ;
 ?>
 <html>
 <head>

@@ -1,3 +1,16 @@
+<?php
+    header("Content-Type:text/html; charset=utf-8");
+    require_once("connMysql.php");
+    session_start();
+
+    $acc = mysqli_escape_string($connect, $_SESSION["account"]);
+
+    $query_myevent = "SELECT * FROM `order` where ";
+    $Myevent = mysqli_query($connect, $query_myevent);
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +69,7 @@
                         <a href="user_home.php">回到首頁</a>
                     </li>
                     <li>
-                        <a href="user_activity.php">所有我的活動</a>
+                        <a href="user_activity.php">我的活動</a>
                     </li>
                     <li>
                         <a href="editprofile.php">個人帳戶管理</a>

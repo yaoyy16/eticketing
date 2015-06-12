@@ -10,6 +10,11 @@
         else
             header("Location: addevent.php");
     }
+
+    $acc = mysqli_escape_string($connect, $_SESSION["account"]);
+
+    $query_myevent = "SELECT * FROM `concert`";// where `holder` = '".$_SESSION['account']."'";
+    $Myevent = mysqli_query($connect, $query_myevent);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +54,6 @@
 </head>
 
 <body id="page-top">
-
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -70,7 +74,7 @@
                         <a href="manager_home.php">回到首頁</a>
                     </li>
                     <li>
-                        <a href="manage_activity.php">所有我的活動</a>
+                        <a href="manage_activity.php">我的活動</a>
                     </li>
                     <li>
                         <a href="#new_event" data-toggle="modal">新增活動</a>
@@ -87,7 +91,30 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
+    <div style=" margin-top: 3cm;"></div>
+    <div class="row">
+<?php 
+    while($row_Myevent = mysqli_fetch_array($Myevent))
+    {   ?>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img data-src="\photos\2.jpg\300x300">
+                <div class="caption">
+                    <h3><?php echo $row_Myevent[0];?></h3>
+                    <ul>
+                      <li>地點 : <?php echo $row_Myevent[6];?></li>
+                      <li>時間 : <?php echo $row_Myevent[4]."&nbsp"."&nbsp".$row_Myevent[5];?></li>
+                      <li>發布 : <?php if($row_Myevent[2]) echo "已發布"; else echo "未發布";?></li>
+                    </ul>
+                    <p><a href="#" class="btn btn-primary" role="button">編輯</a> 
+                        <?php if(!$row_Myevent[2]) echo "<a href='#' class='btn btn-default' role='button'>發布</a>"; ?></p>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+?>
+    </div>
 
 
 
@@ -155,6 +182,3 @@
 
 </body>
 </html>
-
-
-<a href="logout.php" data-toggle="modal">登出</a>
