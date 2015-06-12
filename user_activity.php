@@ -105,6 +105,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="user_receipt">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">（要先 echo 活動名稱）索票紀錄</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>購票人姓名</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>建議捐款金額</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- jQuery -->
     <script src="js/jquery-1.11.3.min.js"></script>
