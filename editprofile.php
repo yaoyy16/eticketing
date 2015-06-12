@@ -100,7 +100,7 @@ if($_SESSION["memberType"] == "M")
                         <a href="manager_home.php">回到首頁</a>
                     </li>    
                     <li>
-                        <a href="manage_activity.php">所有我的活動</a>
+                        <a href="manage_activity.php">我的活動</a>
                     </li>
                     <li>
                         <a href="#new_event" data-toggle="modal">新增活動</a>
@@ -110,7 +110,7 @@ if($_SESSION["memberType"] == "M")
                         <a href="user_home.php">回到首頁</a>
                     </li>    
                     <li>
-                        <a href="user_activity.php">所有我的活動</a>
+                        <a href="user_activity.php">我的活動</a>
                     </li>
 <?php } ?>
                     <li>
@@ -126,8 +126,11 @@ if($_SESSION["memberType"] == "M")
         <!-- /.container-fluid -->
     </nav>
 
-    <div style=" margin-top: 3cm;"></div>
-    <form name="editForm" method="post" action="" id="profile" class="form-horizontal">
+    <div id="profile">
+        <div class="page-header">
+            <h3>個人帳戶管理</h3>
+        </div>
+        <form name="editForm" method="post" action="" class="form-horizontal">
             <?php
                 //not login yet page
                 if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
@@ -171,10 +174,9 @@ if($_SESSION["memberType"] == "M")
                 <input name="action" type="hidden" id="action" value="edit">
                 <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="修改">
 		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
-            </div>
-            
+            </div>         
         </form>
-
+    </div>
     <div class="modal fade" id="logout">
         <div class="modal-dialog">
             <div class="modal-content">

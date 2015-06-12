@@ -91,31 +91,35 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div style=" margin-top: 3cm;"></div>
-    <div class="row">
-<?php 
-    while($row_Myevent = mysqli_fetch_array($Myevent))
-    {   ?>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img data-src="\photos\2.jpg\300x300">
-                <div class="caption">
-                    <h3><?php echo $row_Myevent[0];?></h3>
-                    <ul>
-                      <li>地點 : <?php echo $row_Myevent[6];?></li>
-                      <li>時間 : <?php echo $row_Myevent[4]."&nbsp"."&nbsp".$row_Myevent[5];?></li>
-                      <li>發布 : <?php if($row_Myevent[2]) echo "已發布"; else echo "未發布";?></li>
-                    </ul>
-                    <p><a href="#" class="btn btn-primary" role="button">編輯</a> 
-                        <?php if(!$row_Myevent[2]) echo "<a href='#' class='btn btn-default' role='button'>發布</a>"; ?></p>
-                </div>
-            </div>
-        </div>
-<?php
-    }
-?>
+    <div id="my_events">
+	    <div class="page-header">
+	    	<h3>我的活動</h3>
+	    </div>
+	    
+	    <div class="row">
+			<?php 
+			    while($row_Myevent = mysqli_fetch_array($Myevent))
+			    {   ?>
+			        <div class="col-sm-6 col-md-4">
+			            <div class="thumbnail">
+			                <img src="img/portfolio/2.jpg">
+			                <div class="caption">
+			                    <h3><?php echo $row_Myevent[0];?></h3>
+			                    <ul>
+			                      <li>地點 : <?php echo $row_Myevent[6];?></li>
+			                      <li>時間 : <?php echo $row_Myevent[4]."&nbsp"."&nbsp".$row_Myevent[5];?></li>
+			                      <li>狀態 : <?php if($row_Myevent[2]) echo "已發布"; else echo "未發布";?></li>
+			                    </ul>
+			                    <p><a href="#" class="btn btn-primary" role="button">檢視與編輯</a> 
+			                        <?php if(!$row_Myevent[2]) echo "<a href='#' class='btn btn-default' role='button'>發布</a>"; ?></p>
+			                </div>
+			            </div>
+			        </div>
+			<?php
+			    }
+			?>
+	    </div>
     </div>
-
 
 
     <div class="modal fade" id="logout">
