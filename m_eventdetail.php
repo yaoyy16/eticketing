@@ -1,28 +1,11 @@
 <?php
-    header("Content-Type:text/html; charset=utf-8");
-    require_once("connMysql.php");
-    session_start();
-
-    if(isset($_POST["action"]) && ($_POST["action"] == "release"))
-    {           
-        $query_release = "UPDATE `concert` SET `visible`= 1 WHERE `Concert_id` = '".$_POST["concertid"]."'";
-        $store_release = mysqli_query($connect, $query_release);
-    }
-    
-    if(isset($_POST["action"]) && ($_POST["action"] == "addevent"))
-    {
-        if( ($_POST["concertname"]==""))
-            header("Location: manage_activity.php?errMsg=1"); 
-        else
-            header("Location: addevent.php");
-    }
-
-   // $acc = mysqli_escape_string($connect, $_SESSION["account"]);
-    $query_myevent = "SELECT * FROM `concert`"; // where `holder` = '".$_SESSION['account']."'";
-    $Myevent = mysqli_query($connect, $query_myevent);
-
-
-
+	header("Content-Type:text/html; charset=utf-8");
+	require_once("connMysql.php");
+	session_start();
+//`concert`(`Concert_name`,`Concert_id`,`Name`,`Description`,`Date`,`Time`,`Place`)
+	$query_concert = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."'";
+    $Concert = mysqli_query($connect, $query_concert);
+    	
 ?>
 
 <!DOCTYPE html>
@@ -99,44 +82,12 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div id="my_events">
-	    <div class="page-header">
-	    	<h3>我的活動</h3>
-	    </div>
-	    
-	    <div class="row">
-			<?php 
-			    while($row_Myevent = mysqli_fetch_array($Myevent))
-			    {   ?>
-			        <div class="col-sm-6 col-md-4">
-			            <div class="thumbnail">
-			                <img src="img/portfolio/7.jpg">
-			                <div class="caption">
-			                    <h3><?php echo $row_Myevent[0];?></h3>
-			                    <ul>
-			                      <li>地點 : <?php echo $row_Myevent[6];?></li>
-			                      <li>時間 : <?php echo $row_Myevent[4]."&nbsp"."&nbsp".$row_Myevent[5];?></li>
-			                      <li>狀態 : <?php if($row_Myevent[2]) echo "已發布"; else echo "未發布";?></li>
-			                    </ul>
-                                <form name="po" method="post" action="">
-                                <?php 
-                                    echo "<a href='m_eventdetail.php?concertid=".$row_Myevent[1]."' class='btn btn-primary' role='button'>檢視與編輯</a>";  
-			                        if(!$row_Myevent[2])
-                                    {?>                                        
-                                        <input name="concertid" type="hidden" value="<?php echo $row_Myevent[1];?>">
-                                        <input name="action" type="hidden" id="action" value="release">
-                                        <input type="submit" name="submit3" class='btn btn-default' role='button' value="發佈">
-                                <?php 
-                                    } ?>
-                                </form>
-			                </div>
-			            </div>
-			        </div>
-			<?php
-			    }
-			?>
-	    </div>
-    </div>
+
+
+
+
+
+
 
 
     <div class="modal fade" id="logout">

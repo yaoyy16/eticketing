@@ -21,15 +21,14 @@
 			header("Location: addevent.php?errMsg=1"); 
 		else
 		{
-			$query_insert = "INSERT INTO `concert`(`Concert_name`,`Concert_id`,`Holder`,`Description`,`Date`,`Time`,`Place`,`Seats`) VALUES (";
+			$query_insert = "INSERT INTO `concert`(`Concert_name`,`Concert_id`,`Name`,`Description`,`Date`,`Time`,`Place`) VALUES (";
 			$query_insert .= "'".$_POST["conname"]."',";
 			$query_insert .= "'".$_POST["conid"]."',";
 			$query_insert .= "'".$holder."',";
 			$query_insert .= "'".$_POST["descp"]."',";
 			$query_insert .= "'".$_POST["date"]."',";
 			$query_insert .= "'".$_POST["time"]."',";
-			$query_insert .= "'".$_POST["place"]."',";
-			$query_insert .= "'".$_POST["seat"]."')";
+			$query_insert .= "'".$_POST["place"]."')";
 			mysqli_query($connect, $query_insert);
 			header("Location: manage_activity.php");
 		}		
