@@ -1,7 +1,7 @@
 <?php
 	//database server setting
 	$db_host = "localhost";
-	$db_name = "eticket";
+	$db_name = "eticketing";
 	$db_username = "root";
 	$db_password = "1234";
 

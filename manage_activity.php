@@ -115,14 +115,14 @@
 			                <div class="caption">
 			                    <h3><?php echo $row_Myevent[0];?></h3>
 			                    <ul>
-			                      <li>地點 : <?php echo $row_Myevent[6];?></li>
-			                      <li>時間 : <?php echo $row_Myevent[4]."&nbsp"."&nbsp".$row_Myevent[5];?></li>
-			                      <li>狀態 : <?php if($row_Myevent[2]) echo "已發布"; else echo "未發布";?></li>
+			                      <li>時間 : <?php echo $row_Myevent[6]."&nbsp"."&nbsp".$row_Myevent[7];?></li>
+                                  <li>地點 : <?php echo $row_Myevent[8];?></li>
+			                      <li>狀態 : <?php if($row_Myevent[3]) echo "已發布"; else echo "未發布";?></li>
 			                    </ul>
                                 <form name="po" method="post" action="">
                                 <?php 
                                     echo "<a href='m_eventdetail.php?concertid=".$row_Myevent[1]."' class='btn btn-primary' role='button'>檢視與編輯</a>";  
-			                        if(!$row_Myevent[2])
+			                        if(!$row_Myevent[3])
                                     {?>                                        
                                         <input name="concertid" type="hidden" value="<?php echo $row_Myevent[1];?>">
                                         <input name="action" type="hidden" id="action" value="release">

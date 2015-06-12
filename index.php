@@ -16,17 +16,17 @@
     // 3. login
     if(isset($_POST["action"]) && ($_POST["action"]) == "login")
     {
-        if( ($_POST["account"] == "") || ($_POST["passwd"]==""))
+        if( ($_POST["email"] == "") || ($_POST["passwd"]==""))
             header("Location: index.php?errMsg=1"); 
-        elseif(isset($_POST["account"]) && isset($_POST["passwd"]) && $_POST["account"] != "")
+        elseif(isset($_POST["email"]) && isset($_POST["passwd"]) && $_POST["email"] != "")
         {
             //connecting member data
-            $query_RecLogin = "SELECT * FROM `personal_information` WHERE `Email` = '".$_POST["account"]."'";
+            $query_RecLogin = "SELECT * FROM `personal information` WHERE `Email` = '".$_POST["email"]."'";
             $RecLogin = mysqli_query($connect, $query_RecLogin);
 
             //retrieve account & passwd value
             $row_RecLogin = mysqli_fetch_assoc($RecLogin);
-            $acc = $row_RecLogin["Email"];
+            $acc = $row_RecLogin["Account_id"];
             $pwd = $row_RecLogin["Password"];
             $type = $row_RecLogin["Type"];
             $name = $row_RecLogin["Name"];
@@ -52,23 +52,23 @@
     // 2. register
     if(isset($_POST["action"]) && ($_POST["action"]) == "register")
     {
-        if( ($_POST["name"]=="") || ($_POST["phonenum"]=="") || ($_POST["type"]=="") || ($_POST["account"] == "") || ($_POST["passwd"]=="") ||  ($_POST["passwdtry"]=="") || ($_POST["passwd"]!=$_POST["passwdtry"]))
+        if( ($_POST["name"]=="") || ($_POST["phonenum"]=="") || ($_POST["type"]=="") || ($_POST["email"] == "") || ($_POST["passwd"]=="") ||  ($_POST["passwdtry"]=="") || ($_POST["passwd"]!=$_POST["passwdtry"]))
             header("Location: index.php?errMsg=2"); 
         else
         {
             //check registered before or not
-            $query_RecFindUser = "SELECT `Email` FROM `personal_information` WHERE `Email` = '".$_POST["account"]."'";
+            $query_RecFindUser = "SELECT `Email` FROM `personal information` WHERE `Email` = '".$_POST["email"]."'";
             $RecFindUser = mysqli_query($query_RecFindUser);
             if(mysqli_num_rows($RecFindUser) > 0)
             {
-                header("Location: index.php?errMsg=2&account=".$_POST["account"]);   
+                header("Location: index.php?errMsg=2&account=".$_POST["email"]);   
             }
             else
             {
-                $query_insert = "INSERT INTO `personal_information`(`Name`, `Password`, `Email`, `Phone_num`, `Type`) VALUES (";
+                $query_insert = "INSERT INTO `personal information`(`Name`, `Password`, `Email`, `Phone_num`, `Type`) VALUES (";
                 $query_insert .="'".$_POST["name"]."',";
                 $query_insert .="'".$_POST["passwd"]."',";
-                $query_insert .="'".$_POST["account"]."',";
+                $query_insert .="'".$_POST["email"]."',";
                 $query_insert .="'".$_POST["phonenum"]."',";
                 $query_insert .="'".$_POST["type"]."')";
                 mysqli_query($connect, $query_insert);
@@ -380,7 +380,7 @@
                     ?>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="account" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
@@ -434,7 +434,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-                        <input name="account" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>

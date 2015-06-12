@@ -3,37 +3,30 @@
 	require_once("connMysql.php");
 	session_start();
 
-	$holder = mysqli_escape_string($connect, $_SESSION["userName"]);
-
-/*	if($_FILES["pic"]["temp_name"]!="")
-	{
-		if(move_uploaded_file($_FILES["fileUpload"]["temp_name"], "./".$_FILES["fileUpload"]["name"]))
-		{
-
-		}
-		else
-			echo "<a href='javascript:window.history.back();'>回到上一頁</a>";
-	}
-*/
 	if(isset($_POST["action"]) && ($_POST["action"] == "save"))
 	{
-		if( ($_POST["conname"]=="") ||($_POST["conid"]=="") ||($_POST["descp"]=="") ||($_POST["date"]=="") || ($_POST["time"]=="") || ($_POST["place"]=="") || ($_POST["seat"]==""))
+		if(($_POST["conname"]=="")|| ($_POST["descp"]=="")|| ($_POST["date"]=="")|| ($_POST["time"]=="")|| ($_POST["place"]==""))
 			header("Location: addevent.php?errMsg=1"); 
+		//if($_FILES["fileUpload"]["error"]==0)
 		else
-		{
-			$query_insert = "INSERT INTO `concert`(`Concert_name`,`Concert_id`,`Name`,`Description`,`Date`,`Time`,`Place`) VALUES (";
+		{	
+			//if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"], "img/".$_FILES["fileUpload"]["name"]))
+			//{	
+			$query_insert = "INSERT INTO `concert`(`Concert_name`, `Account_id`, `Description`, `Photo_id`, `Date`, `Time`, `Place`, `Seats`, `Money_acquired`, `Visible`) VALUES (";
 			$query_insert .= "'".$_POST["conname"]."',";
-			$query_insert .= "'".$_POST["conid"]."',";
-			$query_insert .= "'".$holder."',";
+			$query_insert .= "'".$_SESSION["account"]."',";
 			$query_insert .= "'".$_POST["descp"]."',";
+			$query_insert .= "'".$_FILES["fileUpload"]["name"]."',";
 			$query_insert .= "'".$_POST["date"]."',";
 			$query_insert .= "'".$_POST["time"]."',";
-			$query_insert .= "'".$_POST["place"]."')";
+			$query_insert .= "'".$_POST["place"]."',0,0,0)";
 			mysqli_query($connect, $query_insert);
 			header("Location: manage_activity.php");
-		}		
+			//}
+			//else
+			//header("Location: addevent.php?errMsg=2");
+		}
 	}
-
 
 ?>
 
@@ -112,6 +105,64 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+    <div id="profile">
+        <div class="page-header">
+            <h3>新增活動</h3>
+        </div>
+        <form name="addForm" method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+            <?php
+                //not login yet page
+                if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
+                {  ?>
+                   <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>輸入的過程中可能發生錯誤，或所填改資料不完整，請重新修改。</div>
+            <?php
+                }
+            ?>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
+                <div class="col-sm-10">
+                    <input name="conname" type="text" class="form-control" id="name_input" placeholder="" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
+                <div class="col-sm-10">
+                    <input name="descp" type="textarea" class="form-control" id="descp_input" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <div class="col-sm-10">
+                    <input name="date" type="text" class="form-control" id="date_input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">時間</label>
+                <div class="col-sm-10">
+                    <input name="time" type="text" class="form-control" id="time_input">
+                </div>
+            </div>          
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">地點</label>
+                <div class="col-sm-10">
+                    <input name="place" type="text" class="form-control" id="place_input" >
+                </div>
+            </div>       
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">上傳活動宣傳圖</label>
+                <div class="col-sm-10">
+                 
+                </div>
+            </div>        
+
+            <div class="modal-footer">
+                <input name="action" type="hidden" id="action" value="save">                    
+                <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="新增">
+		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
+            </div>         
+        </form>
+    </div>
 
 
 
