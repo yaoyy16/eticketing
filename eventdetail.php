@@ -3,6 +3,13 @@
 	require_once("connMysql.php");
 	session_start();
 
+	if(isset($_POST["action"]) && ($_POST["action"] == "attend"))
+    {           
+        $query_release = "UPDATE `concert` SET `visible`= 1 WHERE `Concert_id` = '".$_GET["concertid"]."'";
+        $store_release = mysqli_query($connect, $query_release);
+        header("Location: m_eventdetail.php?concertid=".$_GET["concertid"]."");
+    }
+
 	// 3. login
     if(isset($_POST["action"]) && ($_POST["action"]) == "login")
     {
@@ -67,10 +74,13 @@
         }       
     }
 
-	$query_event = "SELECT `Concert_name`, `Date`, `Time`, `Place`, `Concert_id` FROM `concert` WHERE `Visible` = 1 ORDER BY `Concert_id` DESC";
-    $Event = mysqli_query($connect, $query_event);
+	$query_detail = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+    $Detail = mysqli_query($connect, $query_detail);
+	$row_Detail = mysqli_fetch_array($Detail);
 
-
+	$query_tktinfo ="SELECT `Ticket_type`, `Num_of_ticket`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)) FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
+	$Tktinfo = mysqli_query($connect, $query_tktinfo);
+	$row_tktinfo = mysqli_fetch_array($Tktinfo);
 ?>
 
 
@@ -191,7 +201,7 @@
                 <?php }else{ ?>
                 	<li>
                         <a href="user_home.php">回到首頁</a>
-                    </li>                  
+                    </li>
                     <li>
                         <a href="user_activity.php">我的活動</a>
                     </li>
@@ -215,30 +225,76 @@
 
     <div id="my_events">
 	    <div class="page-header">
-	    	<h3>所有活動</h3>
+	    	<h3><?php echo $row_Detail[0]; ?></h3>
 	    </div>
-	    
-	    <div class="row">
-			<?php 
-			    while($row_event = mysqli_fetch_array($Event))
-			    {   ?>
-			        <div class="col-sm-6 col-md-4">
-			            <div class="thumbnail">
-			                <img src="img/portfolio/7.jpg">
-			                <div class="caption">
-			                    <h3><?php echo $row_event[0];?></h3>
-			                    <ul>
-			                      <li>時間 : <?php echo $row_event[1]."&nbsp"."&nbsp".$row_event[2];?></li>
-                                  <li>地點 : <?php echo $row_event[3];?></li>
-			                    </ul>
-			                    <?php echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>"; ?>
-			                </div>
-			            </div>
-			        </div>
-			<?php
-			    }
-			?>
-	    </div>
+	    	<img src="img/portfolio/2.jpg">
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[4]; ?></h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[6]; ?></h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">時間</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[7]; ?></h4>
+                </div>
+            </div>          
+            <div class="form-group">
+                <label for="real_name" class="col-sm-2 control-label">地點</label>
+                <div class="col-sm-10">
+                    <h4><?php echo $row_Detail[8]; ?></h4>
+                </div>
+            </div>  
+            <div class="modal-footer">
+            <?php if($_SESSION["memberType"]=="U"){ ?>
+            	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
+            	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
+            </div>          
+    </div>
+
+    <div class="modal fade" id="get_ticket">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">索票</h4>
+                </div>
+                <div class="modal-body">
+	                <form name="get_ticket" method="post" action="">
+	                <div class="modal-body">
+	                    <?php
+	                        //not login yet page
+	                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
+	                        {  ?>
+	                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>輸入有誤，請再試一次</div>
+	                    <?php
+	                        }
+	                    ?>
+	                    <div class="input-group">
+	                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
+	                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
+	                    </div>
+	                    <div class="input-group">
+	                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
+	                        <input name="passwd" type="password" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
+	                    </div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>             
+	                    <input name="action" type="hidden" id="action" value="login">                    
+	                    <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="確認">
+	                </div>
+	                </form>   
+	           	</div>             	
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="login">

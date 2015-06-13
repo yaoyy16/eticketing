@@ -1,3 +1,12 @@
+<?php
+    header("Content-Type:text/html; charset=utf-8");
+    require_once("connMysql.php");
+    session_start();
+    
+    $query_event = "SELECT `Concert_name`, `Description`, `Concert_id`FROM `concert` ORDER BY `Concert_id` DESC";
+    $Event = mysqli_query($connect, $query_event);   
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,96 +157,26 @@
     <section class="no-padding" id="portfolio">
         <div class="container-fluid">
             <div class="row no-gutter">
-                <div class="col-lg-4 col-sm-6">
+            <?php
+            for($i = 0; $i < 3; $i++)
+            {
+                $row_event = mysqli_fetch_array($Event); ?>
+                <div class="col-lg-4 col-sm-6"> 
                     <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/1.jpg" class="img-responsive" alt="">
+                        <img src="img/portfolio/<?php echo ($i+1);?>.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
-                                    達人分享
+                                    <?php echo $row_event[1]; ?>
                                 </div>
                                 <div class="project-name">
-                                    設計這一條路
+                                    <?php echo $row_event[0]; ?>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    DIY 工作坊
-                                </div>
-                                <div class="project-name">
-                                    打造專屬自己的風格文具
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/3.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    達人分享
-                                </div>
-                                <div class="project-name">
-                                    攝影深入淺出
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/4.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    DIY 工作坊
-                                </div>
-                                <div class="project-name">
-                                    十分鐘上菜
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/5.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    達人分享
-                                </div>
-                                <div class="project-name">
-                                    時裝穿搭
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/6.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    DIY 工作坊
-                                </div>
-                                <div class="project-name">
-                                    北歐風傢俱動手做
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+      <?php }?>          
             </div>
         </div>
     </section>
@@ -246,7 +185,7 @@
         <div class="container text-center">
             <div class="call-to-action">
                 <h2>想要參加更多不同的活動嗎？</h2>
-                <a href="#" class="btn btn-default btn-xl wow tada">瀏覽所有活動</a>
+                <a href="events.php" class="btn btn-default btn-xl wow tada">瀏覽所有活動</a>
             </div>
         </div>
     </aside>

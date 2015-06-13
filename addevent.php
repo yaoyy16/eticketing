@@ -98,6 +98,9 @@
                         <a href="addevent.php">新增活動</a>
                     </li>
                     <li>
+                        <a href="events.php">探索活動</a>
+                    </li>
+                    <li>
                         <a href="editprofile.php">個人帳戶管理</a>
                     </li>
                     <li>

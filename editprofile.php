@@ -101,11 +101,14 @@ if($_SESSION["memberType"] == "M")
 <?php }else{ ?>
                     <li>
                         <a href="user_home.php">回到首頁</a>
-                    </li>    
-                    <li>
+                    </li> 
+                    <li>                   
                         <a href="user_activity.php">我的活動</a>
                     </li>
 <?php } ?>
+                    <li>
+                        <a href="events.php">探索活動</a>
+                    </li>    
                     <li>
                         <a href="editprofile.php">個人帳戶管理</a>
                     </li>
