@@ -5,9 +5,8 @@
 
     $acc = mysqli_escape_string($connect, $_SESSION["account"]);
 
-    $query_myevent = "SELECT * FROM `order` where ";
+    $query_myevent = "SELECT distinct`order`. `Concert_id`,`Concert_name`, `Description`,`Date`,`Time`,`Place`,(`seats`- SUM(`quantity`)) FROM `order`,`concert` WHERE `order`.`Account_id` = '".$_SESSION["account"]."' AND `order`.`Concert_id` = `concert`.`Concert_id`Group BY `order`. `Concert_id`";
     $Myevent = mysqli_query($connect, $query_myevent);
-
     
 ?>
 
@@ -84,8 +83,36 @@
         <!-- /.container-fluid -->
     </nav>
 
-
-
+    <div id="my_events">
+        <div class="page-header">
+            <h3>我的活動</h3>
+        </div>        
+        <div class="row">
+            <?php 
+                $x = NULL;
+                while($row_Myevent = mysqli_fetch_array($Myevent))
+                {   
+                    $x = $row_Myevent[1];
+                    ?>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/portfolio/7.jpg">
+                            <div class="caption">
+                                <h3><?php echo $row_Myevent[1];?></h3>
+                                <ul>
+                                  <li>時間 : <?php echo $row_Myevent[3]."&nbsp"."&nbsp".$row_Myevent[4];?></li>
+                                  <li>地點 : <?php echo $row_Myevent[5];?></li>
+                                  <li>剩餘票數 : <?php echo $row_Myevent[6];?></li>
+                                </ul>
+                                 <a href="#user_receipt" data-toggle="modal" type="button" class="btn btn-primary">索票紀錄</a>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                }
+            ?>
+        </div>
+    </div>
 
     <div class="modal fade" id="logout">
         <div class="modal-dialog">
@@ -105,7 +132,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="user_receipt">
+    <<div class="modal fade" id="user_receipt">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -148,6 +175,3 @@
 
 </body>
 </html>
-
-
-<a href="logout.php" data-toggle="modal">登出</a>
