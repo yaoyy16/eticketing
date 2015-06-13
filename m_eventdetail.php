@@ -120,7 +120,7 @@
         { ?>
     		<form name="po" method="post" action="" >
                 <input name="action" type="hidden" id="action" value="release">
-                <input type="submit" name="submit4" class='btn btn-default' role='button' value="發佈">
+                <input type="submit" name="submit4" class='btn btn-default' role='button' value="發佈活動">
             </form>            
         </div>    		
         	<form name="editForm" method="post" action="" class="form-horizontal" >
@@ -145,25 +145,25 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">日期</label>
+                <label for="real_name" class="col-sm-2 control-label">活動日期</label>
                 <div class="col-sm-10">
                     <input name="date" type="text" class="form-control" value="<?php echo $row_Detail[6]; ?>">
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">時間</label>
+                <label for="real_name" class="col-sm-2 control-label">活動時間</label>
                 <div class="col-sm-10">
                     <input name="time" type="text" class="form-control" value="<?php echo $row_Detail[7]; ?>">
                 </div>
             </div>          
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">地點</label>
+                <label for="real_name" class="col-sm-2 control-label">活動地點</label>
                 <div class="col-sm-10">
                     <input name="place" type="text" class="form-control" value="<?php echo $row_Detail[8]; ?>">
                 </div>
             </div>       
-
-            <div class="modal-footer">
+            <hr>
+            <div class="action">
                 <input name="action" type="hidden" id="action" value="edit">
                 <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="修改">
                 <input type="reset" name="submit2" class="btn btn-default" value="取消">
@@ -199,13 +199,15 @@
 		<div class="page-header">
 	    	<h3>索票紀錄</h3>
 	    </div>
-	    <table class="table">
-			<thead ><tr>            
-			    <th>票種名稱</th>
-			    <th>推建捐款金額</th> 
-			    <th>數量</th> 
-			    <th>剩餘票數</th>        
-			</tr></thead>
+	    <table class="table table-striped">
+			<thead >
+                <tr>            
+    			    <th>票種名稱</th>
+    			    <th>推薦捐款金額</th> 
+    			    <th>數量</th> 
+    			    <th>剩餘票數</th>        
+                </tr>
+            </thead>
 			<tbody>
 			    <?php   
 			    $query_order="SELECT `Ticket_type`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)), `ticket`.`Num_of_ticket` FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
