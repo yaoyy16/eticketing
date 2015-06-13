@@ -50,13 +50,6 @@
   margin-left: 25%;
   width: 50%;
 }
-#profile #photo_upload {
-  display: inline-block;
-}
-#profile .help-block {
-  font-size: 12px;
-  display: inline-block;
-}
 #my_events .page-header {
   width: 70%;
   margin-left: 15%;
@@ -93,6 +86,13 @@
   margin-left: 15%;
   padding-bottom: 10%;
   text-align: right;
+}
+#single_event .add_ticket {
+  width: 70%;
+  margin-left: 15%;
+}
+#single_event .add_ticket .form-group label {
+  text-align: left;
 }
 #login .modal-body .input-group {
   margin-top: 20px;

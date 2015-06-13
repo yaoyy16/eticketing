@@ -112,52 +112,93 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div id="profile">
+    <div id="single_event">
         <div class="page-header">
-            <h3>活動資訊</h3>
+            <h3>活動資訊預覽</h3>
         </div>
         <?php 
         while($row_detail = mysqli_fetch_array($Detail))
                 {   ?>
-                    <div class="caption">
-                                <h3><?php echo $row_detail[0];?></h3>
-                                <ul>
-                                  <li>時間 : <?php echo $row_detail[6]."&nbsp"."&nbsp".$row_detail[7];?></li>
-                                  <li>地點 : <?php echo $row_detail[8];?></li>
-                                  <li>狀態 : <?php if($row_detail[3]) echo "已發布"; else echo "未發布";?></li>
-                                </ul>
-                    </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="tb_label">
+                                    活動名稱
+                                </td>
+                                <td class="tb_value">
+                                    <?php echo $row_detail[0];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">
+                                    活動介紹
+                                </td>
+                                <td class="tb_value">
+                                    <?php echo $row_detail[4];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">
+                                    活動時間
+                                </td>
+                                <td class="tb_value">
+                                    <?php echo $row_detail[6]."&nbsp"."&nbsp".$row_detail[7];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">
+                                    活動地點
+                                </td>
+                                <td class="tb_value">
+                                    <?php echo $row_detail[8];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">
+                                    活動狀態
+                                </td>
+                                <td class="tb_value"><?php if($row_detail[3]) echo "已發布"; else echo "未發布";?></td>
+                            </tr>
+                        </tbody>
+                    </table>
         <?php   } ?>
         <div class="page-header">
             <h3>票種設定</h3>
         </div>
-        <table class="table">
-            <thead ><tr>            
-              <th>票種名稱</th>
-              <th>數量</th>
-              <th>推薦捐款金額</th>              
-          </tr></thead>
-          <tbody>
             <?php     
                 $query_tkttype = "SELECT `Ticket_type`, `Num_of_ticket`, `Recommend_price`FROM `concert`NATURAL JOIN `ticket`WHERE `concert`.`Concert_id` = '".$_GET["concertid"]."'";
                 $Tkttype = mysqli_query($connect, $query_tkttype);
                 if(is_null($Tkttype)) 
                     echo "您未新增任何票種";
                 else
-                {
-                    while($row_tkttype = mysqli_fetch_row($Tkttype))
+                { ?>   
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>            
+                                <th>票種名稱</th>
+                                <th>數量</th>
+                                <th>推薦捐款金額</th>              
+                            </tr>
+                        </thead>
+                    </table>
+                    <tbody>
+                    <?php while($row_tkttype = mysqli_fetch_row($Tkttype))
                     { ?>
                         <tr>
                             <td><?php echo $row_tkttype[0];?></td>
                             <td><?php echo $row_tkttype[1];?></td>
                             <td><?php echo $row_tkttype[2];?></td>
                         </tr>
-            <?php   }    
-                }
+            <?php   } ?>
+                    </tbody>
+                </table>    
+            <?php }
             ?> 
-          </tbody>
-        </table>
-        <form name="addForm2" method="post" action="addevent2.php?concertid=<?php echo $_GET["concertid"];?>" class="form-horizontal">
+                    
+        <div class="page-header">
+            <h3>新增票種</h3>
+        </div>
+        <form name="addForm2" method="post" action="addevent2.php?concertid=<?php echo $_GET["concertid"];?>" class="form-horizontal add_ticket">
             <?php
                 //not login yet page
                 if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
@@ -169,19 +210,19 @@
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">票種名稱</label>
                 <div class="col-sm-10">
-                    <input name="tkttype" type="text" class="form-control" id="tkttype_input" placeholder="" >
+                    <input name="tkttype" type="text" class="form-control" id="tkttype_input" placeholder="請填寫該票種名稱" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">數量</label>
+                <label for="real_name" class="col-sm-2 control-label">票券數量</label>
                 <div class="col-sm-10">
-                    <input name="num" type="textarea" class="form-control" id="num_input" placeholder="">
+                    <input name="num" type="textarea" class="form-control" id="num_input" placeholder="請填寫該票種的票券數量">
                 </div>
             </div>
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">推薦捐款金額</label>
                 <div class="col-sm-10">
-                    <input name="price" type="text" class="form-control" id="price_input">
+                    <input name="price" type="text" class="form-control" id="price_input" placeholder="請填寫該票券的推薦捐款金額（以新台幣作為貨幣單位）">
                 </div>
             </div>
 
