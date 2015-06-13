@@ -127,39 +127,39 @@
                 }
             ?>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
-                <div class="col-sm-10">
-                    <input name="conname" type="text" class="form-control" id="name_input" placeholder="" >
+                <label for="real_name" class="col-sm-3 control-label">活動名稱</label>
+                <div class="col-sm-9">
+                    <input name="conname" type="text" class="form-control" id="name_input" placeholder="請輸入您的活動名稱" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
-                <div class="col-sm-10">
-                    <input name="descp" type="textarea" class="form-control" id="descp_input" placeholder="">
+                <label for="real_name" class="col-sm-3 control-label">活動介紹</label>
+                <div class="col-sm-9">
+                    <textarea name="descp" id="descp_input" placeholder="請輸入您的活動介紹" class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">日期</label>
-                <div class="col-sm-10">
+                <label for="real_name" class="col-sm-3 control-label">日期</label>
+                <div class="col-sm-9">
                     <input name="date" type="text" class="form-control" id="date_input">
                 </div>
             </div>
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">時間</label>
-                <div class="col-sm-10">
+                <label for="real_name" class="col-sm-3 control-label">時間</label>
+                <div class="col-sm-9">
                     <input name="time" type="text" class="form-control" id="time_input">
                 </div>
             </div>          
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">地點</label>
-                <div class="col-sm-10">
+                <label for="real_name" class="col-sm-3 control-label">地點</label>
+                <div class="col-sm-9">
                     <input name="place" type="text" class="form-control" id="place_input" >
                 </div>
             </div>       
             <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">上傳活動宣傳圖</label>
-                <div class="col-sm-10">
-                 
+                <label for="real_name" class="col-sm-3 control-label">上傳活動宣傳圖</label>
+                <div class="col-sm-9">
+                    <input type="file" id="photo_upload">
                 </div>
             </div>        
 

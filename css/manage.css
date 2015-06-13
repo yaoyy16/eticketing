@@ -50,6 +50,13 @@
   margin-left: 25%;
   width: 50%;
 }
+#profile #photo_upload {
+  display: inline-block;
+}
+#profile .help-block {
+  font-size: 12px;
+  display: inline-block;
+}
 #my_events .page-header {
   width: 70%;
   margin-left: 15%;

@@ -259,7 +259,6 @@
 	    <div class="page-header">
 	    	<h3><?php echo $row_Detail[0]; ?></h3>
 	    </div>
-<<<<<<< HEAD
 	    	<img src="img/portfolio/2.jpg">
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
@@ -314,7 +313,6 @@
             	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
             	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
         </div> 				         
-=======
 	    <img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/2.jpg">
         <table class="table table-striped">
             <tbody>
@@ -342,7 +340,6 @@
         	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
         	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
         </div>          
->>>>>>> origin/master
     </div>
 
     <div class="modal fade" id="get_ticket">
