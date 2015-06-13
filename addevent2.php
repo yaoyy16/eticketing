@@ -228,8 +228,8 @@
 
             <div class="modal-footer">
                 <input name="action" type="hidden" id="action" value="save">                    
-                <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="新增">
-                <a href="manage_activity.php"><button type="button" "btn btn-default">完成</button></a>
+                <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="新增票種">
+                <a href="manage_activity.php"><button type="button" class="btn btn-default">完成活動建立</button></a>
             </div>         
         </form>
     </div>

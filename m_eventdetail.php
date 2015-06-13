@@ -111,7 +111,7 @@
     </nav>
 
     
-    <div id="single_event">
+    <div id="m_single_event">
         <div class="page-header">
             <h3>活動資訊</h3>
     <?php

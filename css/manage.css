@@ -94,6 +94,11 @@
 #single_event .add_ticket .form-group label {
   text-align: left;
 }
+#m_single_event .page-header {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 10%;
+}
 #login .modal-body .input-group {
   margin-top: 20px;
   margin-bottom: 20px;
