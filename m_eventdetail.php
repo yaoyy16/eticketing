@@ -27,7 +27,6 @@
 		}
 	}
    
-	//$query_detail = "SELECT `Concert_name`, `Description`, `Date`, `Time`, `Place`, `Money_acquired` FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
 	$query_detail = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
     $Detail = mysqli_query($connect, $query_detail);
 	$row_Detail = mysqli_fetch_array($Detail);
@@ -205,7 +204,34 @@
                 </div>
             </div>       
 <?php
-		} ?>  	
+		} ?> 
+		<div class="page-header">
+	    	<h3>索票紀錄</h3>
+	    </div>
+	    <table class="table">
+			<thead ><tr>            
+			    <th>票種名稱</th>
+			    <th>推建捐款金額</th> 
+			    <th>數量</th> 
+			    <th>剩餘票數</th>        
+			</tr></thead>
+			<tbody>
+			    <?php   
+			    $query_order="SELECT `Ticket_type`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)), `ticket`.`Num_of_ticket` FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
+			    	
+			    	$Order = mysqli_query($connect, $query_order);
+
+			    	while ($row_order = mysqli_fetch_array($Order)) 
+			    	{ ?>
+			    		<tr>
+				            <td><?php echo $row_order[0];?></td>
+				            <td><?php echo $row_order[1];?></td>
+				            <td><?php echo $row_order[3];?></td>
+				            <td><?php echo $row_order[2];?></td>				                        
+				        </tr> 
+			<?php   } ?>
+			</tbody>
+		</table> 	
     </div>
 
 

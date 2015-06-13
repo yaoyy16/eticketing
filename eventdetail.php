@@ -3,11 +3,42 @@
 	require_once("connMysql.php");
 	session_start();
 
-	if(isset($_POST["action"]) && ($_POST["action"] == "attend"))
-    {           
-        $query_release = "UPDATE `concert` SET `visible`= 1 WHERE `Concert_id` = '".$_GET["concertid"]."'";
-        $store_release = mysqli_query($connect, $query_release);
-        header("Location: m_eventdetail.php?concertid=".$_GET["concertid"]."");
+	$query_tktinfo ="SELECT `Ticket_type`, `ticket`.`Ticket_type_id`,`Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)) FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
+
+	if(isset($_POST["action"]) && ($_POST["action"]) == "get_tkt")
+    {		
+		if( ($_POST["tkttype"] == "") || ($_POST["number"]=="") || ($_POST["number"]==0) )
+		{  ?>
+            <script language="javascript">
+			    alert("FAIL to order tickets !! Please try again.");     
+		        location.href="eventdetail.php?concertid=".$_GET["concertid"]."";
+	        </script>
+<?php	}  
+		else
+		{   	
+    		$Tktinfo3 = mysqli_query($connect, $query_tktinfo);
+			while ($row_tktinfo3 = mysqli_fetch_array($Tktinfo3)) 
+			{
+				if($_POST["number"] > $row_tktinfo3[3])
+				{ ?>
+					<script language="javascript">
+			            alert("FAIL to order tickets !! Please try again.");     
+			            location.href="eventdetail.php?concertid=".$_GET["concertid"]."";
+			        </script>
+		<?php   }
+
+				if($_POST["tkttype"] == $row_tktinfo3[1])
+				{
+					$query_insert = "INSERT INTO `order`(`Concert_id`, `Account_id`, `Ticket_type_id`, `quantity`) VALUES (";
+	                $query_insert .="'".$_GET["concertid"]."',";
+	                $query_insert .="'".$_SESSION["account"]."',";
+	                $query_insert .="'".$row_tktinfo3[1]."',";
+	                $query_insert .="'".$_POST["number"]."')";
+	                mysqli_query($connect, $query_insert);
+	                header("Location: eventdetail.php?concertid=".$_GET["concertid"]."");
+				}		
+			}
+		}
     }
 
 	// 3. login
@@ -78,9 +109,10 @@
     $Detail = mysqli_query($connect, $query_detail);
 	$row_Detail = mysqli_fetch_array($Detail);
 
-	$query_tktinfo ="SELECT `Ticket_type`, `Num_of_ticket`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)) FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
 	$Tktinfo = mysqli_query($connect, $query_tktinfo);
-	$row_tktinfo = mysqli_fetch_array($Tktinfo);
+	$Tktinfo2 = mysqli_query($connect, $query_tktinfo);
+
+	
 ?>
 
 
@@ -123,8 +155,8 @@
     if(isset($_GET["loginStats"]) && ($_GET["loginStats"] == "1"))
     {  ?>
         <script language="javascript">
-            alert("Successfully applied !!");     
-            location.href="index.php";
+            alert("Successfully got tickets !!");     
+            location.href="eventdetail.php?concertid=".$_GET["concertid"]."";
         </script>
 <?php 
     }
@@ -252,11 +284,35 @@
                     <h4><?php echo $row_Detail[8]; ?></h4>
                 </div>
             </div>  
-            <div class="modal-footer">
+        <?php if($_SESSION["memberType"]=="U"){ ?>
+    	<div class="page-header">
+	    	<h3>索票紀錄</h3>
+	    </div>
+	    <table class="table">
+			<thead ><tr>            
+			    <th>票種名稱</th>
+			    <th>索取數量</th>        
+			</tr></thead>
+			<tbody>
+			    <?php   
+			    	$query_order="SELECT `ticket`.`Ticket_type`, SUM(`order`.`quantity`) FROM `ticket`, `order` WHERE `ticket`.`Ticket_type_id` = `order`.`Ticket_type_id` AND `order`.`Account_id` = '".$_SESSION["account"]."' AND `order`.`Concert_id` = '".$_GET["concertid"]."' GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id`ASC";
+			    	$Order = mysqli_query($connect, $query_order);
+
+			    	while ($row_order = mysqli_fetch_array($Order)) 
+			    	{ ?>
+			    		<tr>
+				            <td><?php echo $row_order[0];?></td>
+				            <td><?php echo $row_order[1];?></td>				                        
+				        </tr> 
+			<?php   } ?>
+			</tbody>
+		</table>
+		<?php }?>
+		<div class="modal-footer">
             <?php if($_SESSION["memberType"]=="U"){ ?>
             	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
             	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
-            </div>          
+        </div> 				         
     </div>
 
     <div class="modal fade" id="get_ticket">
@@ -267,8 +323,6 @@
                     <h4 class="modal-title">索票</h4>
                 </div>
                 <div class="modal-body">
-	                <form name="get_ticket" method="post" action="">
-	                <div class="modal-body">
 	                    <?php
 	                        //not login yet page
 	                        if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "1")
@@ -277,18 +331,47 @@
 	                    <?php
 	                        }
 	                    ?>
-	                    <div class="input-group">
-	                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
-	                        <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
-	                    </div>
-	                    <div class="input-group">
-	                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key"></i></span>
-	                        <input name="passwd" type="password" class="form-control" placeholder="請輸入密碼" aria-describedby="sizing-addon1">
-	                    </div>
+	                    <table class="table">
+			              <thead ><tr>            
+				              <th>票種名稱</th>
+				              <th>推薦捐款金額</th> 
+				              <th>剩餘數量</th>        
+				          </tr></thead>
+				          <tbody>
+				            <?php     
+				                while ($row_tktinfo = mysqli_fetch_array($Tktinfo)) 
+				                { 	?>
+				                	<tr>
+				                        <td><?php echo $row_tktinfo[0];?></td>
+				                        <td><?php echo $row_tktinfo[2];?></td>
+				                        <td><?php echo $row_tktinfo[3];?></td>				                        
+				                    </tr> 
+				                <?php   
+				      		    }  ?> 
+				          </tbody>
+				        </table>
+				        <form name="gettktform" method="post" action="eventdetail.php?concertid=<?php echo $_GET["concertid"];?>" class="form-horizontal">	          
+				          	<div class="form-group">
+                				<label for="real_name" class="col-sm-2 control-label">選取票種</label>
+					            <div class="col-sm-10">
+					                <select name="tkttype">
+					        <?php    while ($row_tktinfo2 = mysqli_fetch_array($Tktinfo2)) 
+						            { 	?>
+						                	<option value="<?php echo $row_tktinfo2[1];?>"><?php echo $row_tktinfo2[0];?></option>
+						    <?php   }  ?> 							        	
+								    </select>
+					            </div>
+					        </div>
+					        <div class="form-group">
+				                <label for="real_name" class="col-sm-2 control-label">索取數量</label>
+				                <div class="col-sm-10">
+				                    <input type="number" name="number" min="0" value="0">
+				                </div>
+				            </div>                    
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>             
-	                    <input name="action" type="hidden" id="action" value="login">                    
+	                    <input name="action" type="hidden" id="action" value="get_tkt">                    
 	                    <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="確認">
 	                </div>
 	                </form>   
@@ -313,7 +396,7 @@
                            <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您輸入的帳號或密碼錯誤</div>
                     <?php
                         }
-                    ?>
+                    ?>                    
                     <div class="input-group">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope-o"></i></span>
                         <input name="email" type="text" class="form-control" placeholder="請輸入電子信箱" aria-describedby="sizing-addon1">
@@ -409,6 +492,23 @@
         </div>
     </div>
 
+    <div class="modal fade" id="sucess">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">索票成功</h4>
+                </div>
+                <div class="modal-body">
+                    推建捐款金額
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">謝謝</button>             
+                    <a href="logout.php"><button type="button" class="btn btn-primary">我要捐款</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- jQuery -->
