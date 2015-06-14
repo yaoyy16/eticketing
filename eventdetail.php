@@ -258,79 +258,25 @@
     <div id="single_event">
 	    <div class="page-header">
 	    	<h3><?php echo $row_Detail[0]; ?></h3>
-	    </div>
-	    	<img src="img/portfolio/2.jpg">
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">活動介紹</label>
-                <div class="col-sm-10">
-                    <h4><?php echo $row_Detail[4]; ?></h4>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">日期</label>
-                <div class="col-sm-10">
-                    <h4><?php echo $row_Detail[6]; ?></h4>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">時間</label>
-                <div class="col-sm-10">
-                    <h4><?php echo $row_Detail[7]; ?></h4>
-                </div>
-            </div>          
-            <div class="form-group">
-                <label for="real_name" class="col-sm-2 control-label">地點</label>
-                <div class="col-sm-10">
-                    <h4><?php echo $row_Detail[8]; ?></h4>
-                </div>
-            </div>  
-        <?php if($_SESSION["memberType"]=="U"){ ?>
-    	<div class="page-header">
-	    	<h3>索票紀錄</h3>
-	    </div>
-	    <table class="table">
-			<thead ><tr>            
-			    <th>票種名稱</th>
-			    <th>索取數量</th>        
-			</tr></thead>
-			<tbody>
-			    <?php   
-			    	$query_order="SELECT `ticket`.`Ticket_type`, SUM(`order`.`quantity`) FROM `ticket`, `order` WHERE `ticket`.`Ticket_type_id` = `order`.`Ticket_type_id` AND `order`.`Account_id` = '".$_SESSION["account"]."' AND `order`.`Concert_id` = '".$_GET["concertid"]."' GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id`ASC";
-			    	$Order = mysqli_query($connect, $query_order);
-
-			    	while ($row_order = mysqli_fetch_array($Order)) 
-			    	{ ?>
-			    		<tr>
-				            <td><?php echo $row_order[0];?></td>
-				            <td><?php echo $row_order[1];?></td>				                        
-				        </tr> 
-			<?php   } ?>
-			</tbody>
-		</table>
-		<?php }?>
-		<div class="modal-footer">
-            <?php if($_SESSION["memberType"]=="U"){ ?>
-            	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
-            	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
-        </div> 				         
+	    </div>			         
 	    <img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/2.jpg">
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td class="tb_label">活動介紹</td>
-                    <td class="tb_value"><?php echo $row_Detail[3]; ?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">日期</td>
                     <td class="tb_value"><?php echo $row_Detail[4]; ?></td>
                 </tr>
                 <tr>
-                    <td class="tb_label">時間</td>
+                    <td class="tb_label">日期</td>
                     <td class="tb_value"><?php echo $row_Detail[6]; ?></td>
                 </tr>
                 <tr>
-                    <td class="tb_label">地點</td>
+                    <td class="tb_label">時間</td>
                     <td class="tb_value"><?php echo $row_Detail[7]; ?></td>
+                </tr>
+                <tr>
+                    <td class="tb_label">地點</td>
+                    <td class="tb_value"><?php echo $row_Detail[8]; ?></td>
                 </tr>
             </tbody>
         </table>
@@ -359,12 +305,14 @@
 	                        }
 	                    ?>
 	                    <table class="table">
-			              <thead ><tr>            
-				              <th>票種名稱</th>
-				              <th>推薦捐款金額</th> 
-				              <th>剩餘數量</th>        
-				          </tr></thead>
-				          <tbody>
+                            <thead>
+                                <tr>            
+    				                <th>票種名稱</th>
+    				                <th>推薦捐款金額</th> 
+    				                <th>剩餘數量</th>        
+    				            </tr>
+                            </thead>
+				            <tbody>
 				            <?php     
 				                while ($row_tktinfo = mysqli_fetch_array($Tktinfo)) 
 				                { 	?>
@@ -375,13 +323,13 @@
 				                    </tr> 
 				                <?php   
 				      		    }  ?> 
-				          </tbody>
+				            </tbody>
 				        </table>
 				        <form name="gettktform" method="post" action="eventdetail.php?concertid=<?php echo $_GET["concertid"];?>" class="form-horizontal">	          
 				          	<div class="form-group">
                 				<label for="real_name" class="col-sm-2 control-label">選取票種</label>
 					            <div class="col-sm-10">
-					                <select name="tkttype">
+					                <select name="tkttype" class="form-control">
 					        <?php    while ($row_tktinfo2 = mysqli_fetch_array($Tktinfo2)) 
 						            { 	?>
 						                	<option value="<?php echo $row_tktinfo2[1];?>"><?php echo $row_tktinfo2[0];?></option>

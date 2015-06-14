@@ -140,23 +140,36 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">（要先 echo 活動名稱）索票紀錄</h4>
+                    <h4 class="modal-title">您的索票紀錄</h4>
                 </div>
                 <div class="modal-body">
-                    <table>
-                        <thead>
-                            <tr></tr>
-                        </thead>
+                    <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <td>購票人姓名</td>
+                                <td class="tb_label">索票訂單編號</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>建議捐款金額</td>
+                                <td class="tb_label">購票人姓名</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">購買票種</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">購買張數</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="tb_label">建議捐款金額</td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <a href="donate.php"><button type="button" class="btn btn-primary">進行線上捐款</button></a>
                 </div>
             </div>
         </div>

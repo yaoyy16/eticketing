@@ -180,7 +180,7 @@
                                 <th>推薦捐款金額</th>              
                             </tr>
                         </thead>
-                    </table>
+                    
                     <tbody>
                     <?php while($row_tkttype = mysqli_fetch_row($Tkttype))
                     { ?>

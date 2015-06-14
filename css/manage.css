@@ -106,6 +106,10 @@
   display: inline-block;
   margin-left: 80%;
 }
+#m_single_event img {
+  width: 70%;
+  margin-left: 15%;
+}
 #m_single_event .form-group {
   width: 70%;
   margin-left: 15%;
@@ -139,4 +143,9 @@
 }
 #register .modal-body .alert .fa-exclamation-circle {
   margin-right: 10px;
+}
+#user_receipt .modal-dialog .modal-content .modal-body .table .tb_label {
+  width: 20%;
+  color: theme-dark;
+  font-weight: bolder;
 }
