@@ -76,7 +76,46 @@
 
 
     <div id="donate">
-        
+        <div class="page-header">
+            <h3>線上捐款</h3>
+            <button class="btn btn-default" onclick="window.history.back()">取消捐款</button>
+        </div>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="tb_label">索票訂單編號</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tb_label">購票人姓名</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tb_label">購買票種</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tb_label">購買張數</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tb_label">建議捐款金額</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h4>請填入欲捐贈金額</h4>
+        <input name="price" type="text" class="form-control" placeholder="請填寫您捐款金額（以新台幣作為貨幣單位）">
+        <h4>請選擇以下支付服務，我們將為您進行線上捐款：</h4>
+        <table class="table">
+            <tbody>
+                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</td></a>
+                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-paypal"></i> PayPal 第三方支付</td></a>
+                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-visa"></i> Visa 信用卡</td></a>
+                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-university"></i>其他支付服務</td></a>
+            </tbody>
+        </table>
     </div>
    <!-- jQuery -->
     <script src="js/jquery-1.11.3.min.js"></script>

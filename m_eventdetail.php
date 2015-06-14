@@ -202,7 +202,9 @@
 	    <table class="table table-striped">
 			<thead >
                 <tr>            
-    			    <th>票種名稱</th>
+    			    <th>索票者帳號</th>
+                    <th>索票者姓名</th>
+                    <th>票種名稱</th>
     			    <th>推薦捐款金額</th> 
     			    <th>數量</th> 
     			    <th>剩餘票數</th>        

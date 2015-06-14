@@ -41,6 +41,44 @@
 .navbar-default .nav > li.active > a:focus:hover {
   background-color: transparent;
 }
+#donate .page-header {
+  width: 70%;
+  margin-left: 15%;
+}
+#donate .page-header h3 {
+  display: inline-block;
+}
+#donate .page-header .btn {
+  display: inline-block;
+  margin-left: 80%;
+}
+#donate .table {
+  width: 70%;
+  margin-left: 15%;
+}
+#donate .table .tb_donate {
+  font-size: 18px;
+  color: rgba(34, 34, 34, 0.5);
+  cursor: pointer;
+}
+#donate .table .tb_donate .fa {
+  margin-right: 5px;
+}
+#donate .table .tb_donate:hover {
+  color: black;
+  cursor: pointer;
+}
+#donate hr {
+  max-width: 70%;
+}
+#donate h4 {
+  width: 70%;
+  margin-left: 15%;
+}
+#donate input {
+  width: 70%;
+  margin-left: 15%;
+}
 #profile .page-header {
   width: 50%;
   margin-left: 25%;
