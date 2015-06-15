@@ -19,7 +19,7 @@
     }
 
    // $acc = mysqli_escape_string($connect, $_SESSION["account"]);
-    $query_myevent = "SELECT * FROM `concert`"; // where `holder` = '".$_SESSION['account']."'";
+    $query_myevent = "SELECT * FROM `concert` WHERE `Account_id` = '".$_SESSION['account']."'";
     $Myevent = mysqli_query($connect, $query_myevent);
 ?>
 

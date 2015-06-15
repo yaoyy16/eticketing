@@ -143,7 +143,7 @@
                         <a class="page-scroll" href="index.php#services">服務</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="index.php#portfolio">熱門活動</a>
+                        <a class="page-scroll" href="events.php">探索活動</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="index.php#contact">聯絡我們</a>

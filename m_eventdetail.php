@@ -192,6 +192,14 @@
 		                    <td class="tb_label">地點</td>
 		                    <td class="tb_value"><?php echo $row_Detail[8]; ?></td>
 		                </tr>
+                        <tr>
+                            <td class="tb_label">活動人數</td>
+                            <td class="tb_value"><?php echo $row_Detail[9]; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="tb_label">活動獲得捐款</td>
+                            <td class="tb_value"><?php echo $row_Detail[10]; ?></td>
+                        </tr>
 		            </tbody>
 		        </table>
 <?php
@@ -202,8 +210,6 @@
 	    <table class="table table-striped">
 			<thead >
                 <tr>            
-    			    <th>索票者帳號</th>
-                    <th>索票者姓名</th>
                     <th>票種名稱</th>
     			    <th>推薦捐款金額</th> 
     			    <th>數量</th> 
@@ -227,6 +233,10 @@
 			<?php   } ?>
 			</tbody>
 		</table> 	
+        <hr>
+            <div class="action">
+                <a href="manage_activity.php"><button type="button" class="btn btn-default">回上一頁</button></a>
+            </div>
     </div>
 
 

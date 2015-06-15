@@ -16,14 +16,26 @@
 			$query_insert .= "'".$_POST["price"]."')";
 			mysqli_query($connect, $query_insert);
 
-            //add total num of the concert and total expected money aquire
-            //$query_seat_money ="SELECT SUM(`Num_of_ticket`), SUM(`Num_of_ticket`*) FROM `ticket` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
-            //$Seat_money = mysqli_query($connect, $query_seat_money);
-            //$row_Seat_money = mysql_fetch_array($Seat_money);
+            $query_newtjtid ="SELECT MAX(`Ticket_type_id`) FROM `ticket`";
+            $newtktid = mysqli_query($connect, $query_newtjtid);
+            $row_id =mysqli_fetch_array($newtktid);
 
-            //更新當天的練球人數
-            //$query_storeNum = "UPDATE `concert` SET `Num_of_people`='$row_NumOfAttend[0]' WHERE `Concert_id` = '".$_GET["concertid"]."'";
-            //$storeNum = mysqli_query($connect, $query_storeNum);
+            $query_insert2 = "INSERT INTO `order`(`Concert_id`, `Account_id`, `Ticket_type_id`, `quantity`) VALUES (" ;
+            $query_insert2 .= "'".$_GET["concertid"]."',1,";
+            $query_insert2 .= "'".$row_id[0]."',0)";
+            mysqli_query($connect, $query_insert2);
+
+            //add seats when adding one ticket type
+            $query_seat="SELECT `Seats` FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+            $Seat = mysqli_query($connect, $query_seat);
+            $row_Seat = mysql_fetch_array($Seat);
+
+            error_log($row_Seat[0]);
+
+            $total_seat = (int)$row_Seat + $_POST["num"] ;
+ 
+            $query_storeNum = "UPDATE `concert` SET `Seats`='$total_seat' WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+            $storeNum = mysqli_query($connect, $query_storeNum);
 
 			header("Location: addevent2.php?concertid=".$_GET["concertid"]."");
 		}

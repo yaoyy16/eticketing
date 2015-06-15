@@ -3,6 +3,14 @@
 	require_once("connMysql.php");
 	session_start();
 
+    if(isset($_SESSION["account"]) && ($_SESSION["account"] != ""))
+    {
+        if($_SESSION["memberType"] == "M") //manager
+            header("Location: m_eventdetail.php");
+        elseif($_SESSION["memberType"] == "U") //user
+            header("Location: u_eventdetail.php");
+    }
+
 	$query_tktinfo ="SELECT `Ticket_type`, `ticket`.`Ticket_type_id`,`Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)) FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
 
 	if(isset($_POST["action"]) && ($_POST["action"]) == "get_tkt")
@@ -184,7 +192,7 @@
                         <a class="page-scroll" href="index.php#services">服務</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="index.php#portfolio">熱門活動</a>
+                        <a class="page-scroll" href="events.php">探索活動</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="index.php#contact">聯絡我們</a>
@@ -282,9 +290,8 @@
         </table>
         <hr>
         <div class="action">
-            <?php if($_SESSION["memberType"]=="U"){ ?>
-        	<a href="#get_ticket" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> <?php }?>
-        	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="回上一頁">
+        	<a href="#notice_no_login" data-toggle="modal" class="btn btn-primary navbar-btn" role="button">索票</a> 
+            <a href="events.php"><button type="button" class="btn btn-default">回上一頁</button></a>
         </div>          
     </div>
 
@@ -467,19 +474,19 @@
         </div>
     </div>
 
-    <div class="modal fade" id="sucess">
+    <div class="modal fade" id="notice_no_login">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">索票成功</h4>
+                    <h4 class="modal-title">尚未登入</h4>
                 </div>
                 <div class="modal-body">
-                    推建捐款金額
+                    您尚未登入。
+                    此服務只供會員使用。若非會員，請先進行註冊。
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">謝謝</button>             
-                    <a href="logout.php"><button type="button" class="btn btn-primary">我要捐款</button></a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">確定</button>             
                 </div>
             </div>
         </div>

@@ -1,3 +1,26 @@
+<?php
+    header("Content-Type:text/html; charset=utf-8");
+    require_once("connMysql.php");
+    session_start();
+
+
+    if(isset($_POST["action"]) && ($_POST["action"] == "donate"))
+    {           
+        //$query_
+
+        $query_release = "UPDATE `concert` SET `visible`= 1 WHERE `Concert_id` = '".$_POST["concertid"]."'";
+        $store_release = mysqli_query($connect, $query_release);
+    }
+    
+
+   // $acc = mysqli_escape_string($connect, $_SESSION["account"]);
+    $query_order = "SELECT `Order_id`,`ticket`.`Ticket_type`, `order`.`quantity`, `ticket`.`Recommend_price` FROM `order`,`ticket` WHERE `ticket`.`Ticket_type_id` = `order`.`Ticket_type_id` AND `order`.`Order_id` = '".$_GET['orderid']."'";
+
+    $Order = mysqli_query($connect, $query_order);
+    $row_order = mysqli_fetch_array($Order);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,39 +101,40 @@
     <div id="donate">
         <div class="page-header">
             <h3>線上捐款</h3>
-            <button class="btn btn-default" onclick="window.history.back()">取消捐款</button>
+            <a href="user_activity.php"><button type="button" class="btn btn-default">回上一頁</button></a>
+            
         </div>
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td class="tb_label">索票訂單編號</td>
-                    <td></td>
+                    <td><?php echo $row_order[0];?></td>
+                </tr>        
+                <tr>
+                    <td class="tb_label">索取票種</td>
+                    <td><?php echo $row_order[1];?></td>
                 </tr>
                 <tr>
-                    <td class="tb_label">購票人姓名</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">購買票種</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">購買張數</td>
-                    <td></td>
+                    <td class="tb_label">索取張數</td>
+                    <td><?php echo $row_order[2];?></td>
                 </tr>
                 <tr>
                     <td class="tb_label">建議捐款金額</td>
-                    <td></td>
+                    <td><?php echo $row_order[3];?></td>
                 </tr>
             </tbody>
         </table>
         <hr>
         <h4>請填入欲捐贈金額</h4>
-        <input name="price" type="text" class="form-control" placeholder="請填寫您捐款金額（以新台幣作為貨幣單位）">
+        <form name="donate" method="post" action="">
+            <input name="price" type="text" class="form-control" placeholder="請填寫您捐款金額（以新台幣作為貨幣單位）">        
+            <input name="action" type="hidden" id="action" value="donate">                    
+            <input type="submit" name="submit"  class="btn btn-primary" value="確認">
+        </form>
         <h4>請選擇以下支付服務，我們將為您進行線上捐款：</h4>
         <table class="table">
             <tbody>
-                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</td></a>
+                <a href="http://www.eden.org.tw/donations/"><td class="tb_donate"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</td></a>
                 <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-paypal"></i> PayPal 第三方支付</td></a>
                 <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-visa"></i> Visa 信用卡</td></a>
                 <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-university"></i>其他支付服務</td></a>
