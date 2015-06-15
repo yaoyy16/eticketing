@@ -56,17 +56,18 @@
   width: 70%;
   margin-left: 15%;
 }
-#donate .table .tb_donate {
+#donate .table .tb_donate a {
   font-size: 18px;
   color: rgba(34, 34, 34, 0.5);
   cursor: pointer;
 }
-#donate .table .tb_donate .fa {
+#donate .table .tb_donate a .fa {
   margin-right: 5px;
 }
-#donate .table .tb_donate:hover {
+#donate .table .tb_donate a:hover {
   color: black;
   cursor: pointer;
+  text-decoration: none;
 }
 #donate hr {
   max-width: 70%;
@@ -79,7 +80,14 @@
   width: 70%;
   margin-left: 15%;
 }
-
+#donate .donate_money {
+  margin-top: 20px;
+}
+#donate .donate_money .btn {
+  margin-left: 75%;
+  margin-top: 10px;
+  width: 120px;
+}
 #profile .page-header {
   width: 50%;
   margin-left: 25%;

@@ -126,18 +126,18 @@
         </table>
         <hr>
         <h4>請填入欲捐贈金額</h4>
-        <form name="donate" method="post" action="">
+        <form name="donate" method="post" action="" class="donate_money">
             <input name="price" type="text" class="form-control" placeholder="請填寫您捐款金額（以新台幣作為貨幣單位）">        
             <input name="action" type="hidden" id="action" value="donate">                    
-            <input type="submit" name="submit"  class="btn btn-primary" value="確認">
+            <input type="submit" name="submit"  class="btn btn-primary" value="確認捐款金額">
         </form>
         <h4>請選擇以下支付服務，我們將為您進行線上捐款：</h4>
         <table class="table">
             <tbody>
-                <a href="http://www.eden.org.tw/donations/"><td class="tb_donate"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</td></a>
-                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-paypal"></i> PayPal 第三方支付</td></a>
-                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-cc-visa"></i> Visa 信用卡</td></a>
-                <a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><td class="tb_donate"><i class="fa fa-university"></i>其他支付服務</td></a>
+                <td class="tb_donate"><a href="http://www.eden.org.tw/donations/"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</a></td>
+                <td class="tb_donate"><a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><i class="fa fa-cc-paypal"></i> PayPal 第三方支付</a></td>
+                <td class="tb_donate"><a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><i class="fa fa-cc-visa"></i> Visa 信用卡</a></td>
+                <td class="tb_donate"><a href="http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192"><i class="fa fa-university"></i>其他支付服務</a></td>
             </tbody>
         </table>
     </div>

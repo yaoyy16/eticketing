@@ -75,19 +75,24 @@
         margin-left: 15%;
 
         .tb_donate {
-            font-size: 18px;
-            color: fade(@theme-dark, 50%);
-            cursor: pointer;
 
-            .fa {
-                margin-right: 5px;
+            a {
+                font-size: 18px;
+                color: fade(@theme-dark, 50%);
+                cursor: pointer;
+                .fa {
+                    margin-right: 5px;
+                }
             }
-        }
+            
+            a:hover {
+                color: black;
+                cursor: pointer;
+                text-decoration: none;
 
-        .tb_donate:hover {
-            color: black;
-            cursor: pointer;
-        }
+                
+            }           
+        }        
     }
 
     hr {
@@ -102,6 +107,15 @@
     input {
         width: 70%;
         margin-left: 15%;
+    }
+
+    .donate_money {
+        margin-top: 20px;
+        .btn {
+            margin-left: 75%;
+            margin-top: 10px;
+            width: 120px;
+        }
     }
 }
 //profile
