@@ -122,7 +122,8 @@
                 <input name="action" type="hidden" id="action" value="release">
                 <input type="submit" name="submit4" class='btn btn-default' role='button' value="發佈活動">
             </form>            
-        </div>    		
+        </div>
+
         	<form name="editForm" method="post" action="" class="form-horizontal" >
             <?php
                 //not login yet page
@@ -132,6 +133,7 @@
             <?php
                 }
             ?>
+            <img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/8.jpg">
             <div class="form-group">
                 <label for="real_name" class="col-sm-2 control-label">活動名稱</label>
                 <div class="col-sm-10">
@@ -173,7 +175,7 @@
 		else
 		{ ?>
 		  </div>
-		  	<img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/2.jpg">
+		  	<img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/8.jpg">
 		        <table class="table table-striped">
 		            <tbody>
 		                <tr>
@@ -197,7 +199,7 @@
                             <td class="tb_value"><?php echo $row_Detail[9]; ?></td>
                         </tr>
                         <tr>
-                            <td class="tb_label">活動獲得捐款</td>
+                            <td class="tb_label">目前活動獲得捐款</td>
                             <td class="tb_value"><?php echo $row_Detail[10]; ?></td>
                         </tr>
 		            </tbody>

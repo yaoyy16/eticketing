@@ -48,11 +48,9 @@
         {
             //check registered before or not
             $query_RecFindUser = "SELECT `Email` FROM `personal information` WHERE `Email` = '".$_POST["email"]."'";
-            $RecFindUser = mysqli_query($query_RecFindUser);
+            $RecFindUser = mysqli_query($connect, $query_RecFindUser);
             if(mysqli_num_rows($RecFindUser) > 0)
-            {
-                header("Location: events.php?errMsg=2&account=".$_POST["email"]);   
-            }
+                header("Location: events.php?errMsg=2");   
             else
             {
                 $query_insert = "INSERT INTO `personal information`(`Name`, `Password`, `Email`, `Phone_num`, `Type`) VALUES (";
@@ -69,8 +67,6 @@
 
 	$query_event = "SELECT `Concert_name`, `Date`, `Time`, `Place`, `Concert_id` FROM `concert` WHERE `Visible` = 1 ORDER BY `Concert_id` DESC";
     $Event = mysqli_query($connect, $query_event);
-
-
 ?>
 
 
@@ -114,8 +110,8 @@
     if(isset($_GET["loginStats"]) && ($_GET["loginStats"] == "1"))
     {  ?>
         <script language="javascript">
-            alert("Successfully applied !!");     
-            location.href="index.php";
+            alert("Successfully registered !!");     
+            location.href="events.php";
         </script>
 <?php 
     }
@@ -225,14 +221,21 @@
 			    {   ?>
 			        <div class="col-sm-6 col-md-4">
 			            <div class="thumbnail">
-			                <img src="img/portfolio/7.jpg">
+			                <img src="img/portfolio/8.jpg">
 			                <div class="caption">
 			                    <h3><?php echo $row_event[0];?></h3>
 			                    <ul>
 			                      <li>時間 : <?php echo $row_event[1]."&nbsp"."&nbsp".$row_event[2];?></li>
                                   <li>地點 : <?php echo $row_event[3];?></li>
 			                    </ul>
-			                    <?php echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>"; ?>
+			                    <?php 
+                                    if($_SESSION["memberType"] == "M") //manager
+                                        echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
+                                    elseif($_SESSION["memberType"] == "U") //user
+                                        echo "<a href='u_eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
+                                    else
+                                        echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
+                                ?>
 			                </div>
 			            </div>
 			        </div>
@@ -292,7 +295,7 @@
                         if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "2")
                         {  ?>
 
-                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填完完整資訊</div>
+                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填完完整資訊或該帳號已有人使用</div>
                     <?php
                         }
                     ?>

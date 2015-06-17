@@ -3,37 +3,6 @@
     require_once("connMysql.php");
     session_start();
 
-    if(isset($_POST["action"]) && ($_POST["action"] == "donate"))
-    {           
-        if($_POST["d_money"]=="")
-            header("Location: donate.php?errMsg=1");
-        else
-        {
-            $query_insert = "INSERT INTO `donation`(`Account_id`, `Concert_id`, `Money_donated`, `Payment_id`) VALUES (";
-            $query_insert .= "'".$_SESSION["account"]."',";
-            $query_insert .= "'".$_GET["concertid"]."',";
-            $query_insert .= "'".$_POST["d_money"]."',1)";
-            mysqli_query($connect, $query_insert);
-
-            $query_t_mon = "SELECT SUM(`Money_donated`) FROM `donation` WHERE `Concert_id` = '".$_GET["concertid"]."'";
-            $T_mon = mysqli_query($connect, $query_t_mon);
-            $row_T_mon = mysqli_fetch_array($T_mon);
-
-            $query_aquire = "UPDATE `concert` SET `Money_acquired`='$row_T_mon[0]' WHERE `Concert_id` = '".$_GET["concertid"]."'";
-            $Aquire = mysqli_query($connect, $query_aquire);
-
-            header("Location: donate2.php?amount=".$_POST["d_money"]."");
-        }        
-    }    
-
-    $query_detail = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
-    $Detail = mysqli_query($connect, $query_detail);
-    $row_Detail = mysqli_fetch_array($Detail);
-
-    $query_order = "SELECT `Order_id`,`ticket`.`Ticket_type`, `order`.`quantity`, `ticket`.`Recommend_price` FROM `order`,`ticket` 
-                    WHERE `ticket`.`Ticket_type_id` = `order`.`Ticket_type_id` AND `order`.`Concert_id` = '".$_GET["concertid"]."' AND `order`.`Account_id` = '".$_SESSION["account"]."'";
-    $Order = mysqli_query($connect, $query_order);
-    
 ?>
 
 
@@ -81,8 +50,17 @@
             alert("Failed to donate! Please try again.");     
             location.href=javascript:window.history.back(-1);
         </script>
-<?php
-    }  ?>
+<?php 
+    }
+    if(isset($_GET["donateStats"]) && ($_GET["donateStats"] == "1"))
+    {  ?>
+        <script language="javascript">
+            alert("謝謝您的捐款 !! ");     
+            location.href="user_activity.php";
+        </script>
+<?php 
+    }
+     ?>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -121,73 +99,23 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div id="single_event">
-        <div class="page-header">
-            <h3><?php echo $row_Detail[0]; ?></h3>
-        </div>                   
-        <img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/8.jpg">
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    <td class="tb_label">活動介紹</td>
-                    <td class="tb_value"><?php echo $row_Detail[4]; ?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">活動人數</td>
-                    <td class="tb_value"><?php echo $row_Detail[9]; ?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">日期</td>
-                    <td class="tb_value"><?php echo $row_Detail[6]; ?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">時間</td>
-                    <td class="tb_value"><?php echo $row_Detail[7]; ?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">地點</td>
-                    <td class="tb_value"><?php echo $row_Detail[8]; ?></td>
-                </tr>
-            </tbody>
-        </table>        
-    </div>
 
-
-    <div id="donate" style="margin-bottom: 2cm;">
+    <div id="donate">
         <div class="page-header">
-            <h3>線上捐款</h3>
-            <a href="user_activity.php"><button type="button" class="btn btn-default">回上一頁</button></a>            
-        </div>
-        <?php  while($row_order = mysqli_fetch_array($Order)) { ?>
-        <table class="table table-striped">
+            <h3>線上捐款</h3>           
+        </div>        
+        <h4>您捐贈之金額為 : <?php echo $_GET["amount"]; ?> </h4>
+        <h4>感謝您的支持!!</h4>
+        <hr>
+        <h4>請選擇以下支付服務，我們將為您進行線上捐款：</h4>
+        <table class="table">
             <tbody>
-                <tr>
-                    <td class="tb_label">索票訂單編號</td>
-                    <td><?php echo $row_order[0];?></td>
-                </tr>        
-                <tr>
-                    <td class="tb_label">索取票種</td>
-                    <td><?php echo $row_order[1];?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">索取張數</td>
-                    <td><?php echo $row_order[2];?></td>
-                </tr>
-                <tr>
-                    <td class="tb_label">建議捐款金額</td>
-                    <td><?php echo $row_order[3]*$row_order[2];?></td>
-                </tr>
+                <td class="tb_donate"><a href="#" onclick="window.open('http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192')"><i class="fa fa-cc-mastercard"></i> MasterCard 信用卡</a></td>
+                <td class="tb_donate"><a href="#" onclick="window.open('http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192')"><i class="fa fa-cc-paypal"></i> PayPal 第三方支付</a></td>
+                <td class="tb_donate"><a a href="#" onclick="window.open('http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192')"><i class="fa fa-cc-visa"></i> Visa 信用卡</a></td>
+                <td class="tb_donate"><a a href="#" onclick="window.open('http://www.eden.org.tw/donate_page.php?level2_id=55&level3_id=192')"><i class="fa fa-university"></i>其他支付服務</a></td>
             </tbody>
         </table>
-        <hr>
-        <?php } ?>
-
-        <h4>請填入欲捐贈金額</h4>
-        <form name="donate" method="post" action="" class="donate_money">
-            <input name="d_money" type="text" class="form-control" placeholder="請填寫您捐款金額（以新台幣作為貨幣單位）">           
-            <input name="action" type="hidden" id="action" value="donate">                    
-            <input type="submit" name="submit"  class="btn btn-primary" value="確認捐款金額">
-        </form>
     </div>
 
     <div class="modal fade" id="logout">

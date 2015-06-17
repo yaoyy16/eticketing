@@ -111,7 +111,7 @@
 			    {   ?>
 			        <div class="col-sm-6 col-md-4">
 			            <div class="thumbnail">
-			                <img src="img/portfolio/7.jpg">
+			                <img src="img/portfolio/8.jpg">
 			                <div class="caption">
 			                    <h3><?php echo $row_Myevent[0];?></h3>
 			                    <ul>

@@ -26,15 +26,11 @@
             mysqli_query($connect, $query_insert2);
 
             //add seats when adding one ticket type
-            $query_seat="SELECT `Seats` FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+            $query_seat="SELECT SUM(`Num_of_ticket`) FROM `ticket` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
             $Seat = mysqli_query($connect, $query_seat);
-            $row_Seat = mysql_fetch_array($Seat);
-
-            error_log($row_Seat[0]);
-
-            $total_seat = (int)$row_Seat + $_POST["num"] ;
+            $row_Seat = mysqli_fetch_array($Seat);                        
  
-            $query_storeNum = "UPDATE `concert` SET `Seats`='$total_seat' WHERE `Concert_id` = '".$_GET["concertid"]."' ";
+            $query_storeNum = "UPDATE `concert` SET `Seats`='$row_Seat[0]' WHERE `Concert_id` = '".$_GET["concertid"]."' ";
             $storeNum = mysqli_query($connect, $query_storeNum);
 
 			header("Location: addevent2.php?concertid=".$_GET["concertid"]."");

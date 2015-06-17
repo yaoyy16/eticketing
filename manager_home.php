@@ -101,10 +101,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">還記得到了演唱會現場才發現忘記帶票的囧樣嗎？</h2>
+                    <h2 class="section-heading">伊甸募款音樂會</h2>
                     <hr class="light">
-                    <p class="text-faded">你常常想要聽音樂會卻因為高昂的票價而卻步嘛？你常常想要參加慈善音樂會卻找不到管道索票嘛？
-                                          如果你是以上的族群，立刻來試用最新的服務吧！</p>
+                    <p class="text-faded"></p>
                     <a href="#" class="btn btn-default btn-xl">開始使用</a>
                 </div>
             </div>

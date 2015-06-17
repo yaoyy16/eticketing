@@ -57,10 +57,10 @@
         {
             //check registered before or not
             $query_RecFindUser = "SELECT `Email` FROM `personal information` WHERE `Email` = '".$_POST["email"]."'";
-            $RecFindUser = mysqli_query($query_RecFindUser);
+            $RecFindUser = mysqli_query($connect, $query_RecFindUser);
             if(mysqli_num_rows($RecFindUser) > 0)
             {
-                header("Location: index.php?errMsg=2&account=".$_POST["email"]);   
+                header("Location: index.php?errMsg=2");   
             }
             else
             {
@@ -341,7 +341,7 @@
                         if(isset($_GET["errMsg"]) && ($_GET["errMsg"]) == "2")
                         {  ?>
 
-                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填完完整資訊</div>
+                           <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i>您未填完完整資訊或該帳號已有人使用</div>
                     <?php
                         }
                     ?>

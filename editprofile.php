@@ -13,9 +13,9 @@
 			$pass = $_POST["passwd"];
 			$email = $_POST["email"];
 			$phone = $_POST["phonenum"];
-			$query_update = "UPDATE `personal_information` SET `Name`='$na',`Password`='$pass',`Email`='$email',`Phone_num`='$phone' WHERE `Account_id`='".$_SESSION["account"]."'";
+			$query_update = "UPDATE `personal information` SET `Name`='$na',`Password`='$pass',`Email`='$email',`Phone_num`='$phone' WHERE `Account_id`='".$_SESSION["account"]."'";
 			mysqli_query($connect, $query_update);
-			header("Location: editProfile.php?editStats=1");
+			header("Location: editprofile.php?editStats=1");
 		}
 	}
    
@@ -63,10 +63,7 @@
 <body id="page-top">
 <?php if(isset($_GET["editStats"]) && ($_GET["editStats"] == "1"))
 	  {  
-			if($_SESSION["memberType"] == "M") //manager
-            	header("Location: manager_home.php");
-        	elseif($_SESSION["memberType"] == "U") //user
-            	header("Location: user_home.php");  
+            header("Location: editprofile.php");  
 	  }
 ?>
 
@@ -169,7 +166,7 @@ if($_SESSION["memberType"] == "M")
             <div class="modal-footer">
                 <input name="action" type="hidden" id="action" value="edit">
                 <input type="submit" name="submit1" class="btn btn-primary navbar-btn" value="修改">
-		    	<input type="button" name="submit3" class="btn btn-default" onclick="window.history.back()" value="取消">
+                <a href="events.php"><button type="button" class="btn btn-default">完成</button></a>
             </div>         
         </form>
     </div>
