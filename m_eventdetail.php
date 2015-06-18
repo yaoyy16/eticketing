@@ -30,6 +30,10 @@
 	$query_detail = "SELECT * FROM `concert` WHERE `Concert_id` = '".$_GET["concertid"]."' ";
     $Detail = mysqli_query($connect, $query_detail);
 	$row_Detail = mysqli_fetch_array($Detail);
+
+    $query_sum = "SELECT SUM(quantity) FROM `order` WHERE `Concert_id` = '".$_GET["concertid"]."'";
+    $Sum = mysqli_query($connect, $query_sum);
+    $row_Sum = mysqli_fetch_array($Sum);
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +115,7 @@
     </nav>
 
     
-    <div id="m_single_event">
+    <div id="m_single_event" style="margin-bottom: 2cm">
         <div class="page-header">
             <h3>活動資訊</h3>
     <?php
@@ -195,11 +199,15 @@
 		                    <td class="tb_value"><?php echo $row_Detail[8]; ?></td>
 		                </tr>
                         <tr>
-                            <td class="tb_label">活動人數</td>
+                            <td class="tb_label">活動預計總人數</td>
                             <td class="tb_value"><?php echo $row_Detail[9]; ?></td>
                         </tr>
                         <tr>
-                            <td class="tb_label">目前活動獲得捐款</td>
+                            <td class="tb_label">目前參加人數</td>
+                            <td class="tb_value"><?php echo $row_Sum[0]; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="tb_label">目前活動預計獲得捐款</td>
                             <td class="tb_value"><?php echo $row_Detail[10]; ?></td>
                         </tr>
 		            </tbody>
@@ -220,8 +228,7 @@
             </thead>
 			<tbody>
 			    <?php   
-			    $query_order="SELECT `Ticket_type`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)), `ticket`.`Num_of_ticket` FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
-			    	
+			        $query_order="SELECT `Ticket_type`, `Recommend_price`, (`ticket`.`Num_of_ticket`-SUM(`order`.`quantity`)), `ticket`.`Num_of_ticket` FROM `order`, `concert`, `ticket` WHERE `ticket`.`Concert_id` = '".$_GET["concertid"]."' AND (`order`.`concert_id` = `concert`.`concert_id`) AND (`ticket`.`Ticket_type_id` = `order`.`Ticket_type_id`) GROUP BY `ticket`.`Ticket_type_id` ORDER BY `ticket`.`Ticket_type_id` ASC";
 			    	$Order = mysqli_query($connect, $query_order);
 
 			    	while ($row_order = mysqli_fetch_array($Order)) 

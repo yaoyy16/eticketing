@@ -174,8 +174,8 @@
                     <td><?php echo $row_order[2];?></td>
                 </tr>
                 <tr>
-                    <td class="tb_label">建議捐款金額</td>
-                    <td><?php echo $row_order[3]*$row_order[2];?></td>
+                    <td class="tb_label">建議單張捐款金額</td>
+                    <td><?php echo $row_order[3];?></td>
                 </tr>
             </tbody>
         </table>

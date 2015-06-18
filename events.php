@@ -229,12 +229,15 @@
                                   <li>地點 : <?php echo $row_event[3];?></li>
 			                    </ul>
 			                    <?php 
-                                    if($_SESSION["memberType"] == "M") //manager
+                                    if(!isset($_SESSION["account"]))
                                         echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
-                                    elseif($_SESSION["memberType"] == "U") //user
-                                        echo "<a href='u_eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
                                     else
-                                        echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
+                                    {
+                                        if($_SESSION["memberType"] == "M")
+                                            echo "<a href='eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";
+                                        else
+                                            echo "<a href='u_eventdetail.php?concertid=".$row_event[4]."' class='btn btn-primary' role='button'>詳細資訊</a>";                                                             
+                                    }
                                 ?>
 			                </div>
 			            </div>

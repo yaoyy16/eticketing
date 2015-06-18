@@ -100,11 +100,12 @@
     </nav>
 
 
-    <div id="donate">
+    <div id="donate">onclick="window.history.back()"
         <div class="page-header">
             <h3>線上捐款</h3>           
+            <button type="button" class="btn btn-default"  onclick="window.history.back()">回上一頁</button>
         </div>        
-        <h4>您捐贈之金額為 : <?php echo $_GET["amount"]; ?> </h4>
+        <h4>您願意捐贈之金額為 : <?php echo $_GET["amount"]; ?> </h4>
         <h4>感謝您的支持!!</h4>
         <hr>
         <h4>請選擇以下支付服務，我們將為您進行線上捐款：</h4>

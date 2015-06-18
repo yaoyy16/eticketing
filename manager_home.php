@@ -199,16 +199,16 @@
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <i class="fa fa-phone fa-3x wow bounceIn"></i>
-                    <p>123-456-6789</p>
+                    <p>(02)2230-7715</p>
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                    <p><a href="mailto:your-email@your-domain.com">feedback@eden.org.tw</a></p>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <div class="modal fade" id="logout">
         <div class="modal-dialog">
             <div class="modal-content">

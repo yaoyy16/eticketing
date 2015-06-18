@@ -3,11 +3,8 @@
     require_once("connMysql.php");
     session_start();
 
-    $acc = mysqli_escape_string($connect, $_SESSION["account"]);
-
     $query_myevent = "SELECT distinct`order`. `Concert_id`,`Concert_name`, `Description`,`Date`,`Time`,`Place`,(`seats`- SUM(`quantity`)), `Order_id` FROM `order`,`concert` WHERE `order`.`Account_id` = '".$_SESSION["account"]."' AND `order`.`Concert_id` = `concert`.`Concert_id`Group BY `order`. `Concert_id`";
-    $Myevent = mysqli_query($connect, $query_myevent);
-    
+    $Myevent = mysqli_query($connect, $query_myevent);    
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +45,7 @@
 
 <body id="page-top">
 <?php 
-    if(isset($_GET["loginStats"]) && ($_GET["loginStats"] == "1"))
+    if(isset($_GET["orderStats"]) && ($_GET["orderStats"] == "1"))
     {  ?>
         <script language="javascript">
             alert("Successfully order tickets !!");     
