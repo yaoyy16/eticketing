@@ -114,8 +114,8 @@
             location.href="eventdetail.php?concertid=".$_GET["concertid"]."";
         </script>
 <?php 
-    } 
-     ?>
+    }
+    if(!isset($_SESSION["account"])){ ?>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -157,8 +157,146 @@
         <!-- /.container-fluid -->
     </nav>
 
+<?php }else{ ?>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Eden Ticket</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="manager_home.php">回到首頁</a>
+                    </li>
+                    <li>
+                        <a href="manage_activity.php">我的活動</a>
+                    </li>
+                    <li>
+                        <a href="addevent.php">新增活動</a>
+                    </li>
+                    <li>
+                        <a href="events.php">探索活動</a>
+                    </li>
+                    <li>   
+                        <a href="editprofile.php">個人帳戶管理</a>
+                    </li>
+                    <li>
+                        <a href="#logout" data-toggle="modal">登出</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+<?php } ?>
+
     <div id="single_event">
 	    <div class="page-header">
+<?php 
+    if(!isset($_SESSION["account"])){ ?>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Eden Ticket</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="index.php#about">關於</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.php#services">服務</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="events.php">探索活動</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.php#contact">聯絡我們</a>
+                    </li>
+                    <li>
+                        <a href="#login" data-toggle="modal">登入</a>
+                    </li>
+                    <li>
+                        <a href="#register" data-toggle="modal">註冊</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+<?php }else{ ?>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Eden Ticket</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                <?php if($_SESSION["memberType"] == "M"){ ?>
+                    <li>
+                        <a href="manager_home.php">回到首頁</a>
+                    </li>
+                    <li>
+                        <a href="manage_activity.php">我的活動</a>
+                    </li>
+                    <li>
+                        <a href="addevent.php">新增活動</a>
+                    </li>
+                    <li>
+                <?php }else{ ?>
+                    <li>
+                        <a href="user_home.php">回到首頁</a>
+                    </li>                  
+                    <li>
+                        <a href="user_activity.php">我的活動</a>
+                    </li>
+                <?php } ?> 
+                    <li>
+                        <a href="events.php">探索活動</a>
+                    </li>
+                    <li>   
+                        <a href="editprofile.php">個人帳戶管理</a>
+                    </li>
+                    <li>
+                        <a href="#logout" data-toggle="modal">登出</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+<?php } ?>
 	    	<h3><?php echo $row_Detail[0]; ?></h3>
 	    </div>			         
 	    <img class="img-responsive img-thumbnail image" alt="Responsive image" src="img/portfolio/2.jpg">

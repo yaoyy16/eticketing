@@ -105,7 +105,7 @@
                     <h2 class="section-heading">伊甸募款音樂會</h2>
                     <hr class="light">
                     <p class="text-faded"></p>
-                    <a href="#" class="btn btn-default btn-xl">開始使用</a>
+                    <a href="#portfolio" class="btn btn-default btn-xl">開始使用</a>
                 </div>
             </div>
         </div>
@@ -162,7 +162,7 @@
             {
                 $row_event = mysqli_fetch_array($Event); ?>
                 <div class="col-lg-4 col-sm-6"> 
-                    <a href="#" class="portfolio-box">
+                    <a href="u_eventdetail.php?concertid=<?php echo $row_event[2]; ?>" class="portfolio-box">
                         <img src="img/portfolio/<?php echo ($i+1);?>.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">

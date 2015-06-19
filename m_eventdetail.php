@@ -172,7 +172,7 @@
             <div class="action">
                 <input name="action" type="hidden" id="action" value="edit">
                 <input type="submit" name="submit" class="btn btn-primary navbar-btn" value="修改">
-                <input type="reset" name="submit2" class="btn btn-default" value="取消">
+                <input type="reset" name="submit2" class="btn btn-default" value="還原">
             </div>         
         	</form>
 <?php   }

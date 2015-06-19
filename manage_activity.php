@@ -121,7 +121,10 @@
 			                    </ul>
                                 <form name="po" method="post" action="">
                                 <?php 
-                                    echo "<a href='m_eventdetail.php?concertid=".$row_Myevent[1]."' class='btn btn-primary' role='button'>檢視與編輯</a>";  
+                                    if(!$row_Myevent[3])
+                                        echo "<a href='m_eventdetail.php?concertid=".$row_Myevent[1]."' class='btn btn-primary' role='button'>修改</a>"; 
+                                    else
+                                        echo "<a href='m_eventdetail.php?concertid=".$row_Myevent[1]."' class='btn btn-primary' role='button'>檢視</a>";  
 			                        if(!$row_Myevent[3])
                                     {?>                                        
                                         <input name="concertid" type="hidden" value="<?php echo $row_Myevent[1];?>">
